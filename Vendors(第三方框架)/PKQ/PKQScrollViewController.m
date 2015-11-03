@@ -11,6 +11,7 @@
 #import "PKQConst.h"
 @interface PKQScrollViewController ()<UIPageViewControllerDataSource,UIPageViewControllerDelegate>
 @property (strong,nonatomic)UIActivityIndicatorView* activity;
+@property (strong,nonatomic)UIButton *backButton;
 @end
 
 @implementation PKQScrollViewController
@@ -29,9 +30,17 @@
         make.left.right.mas_equalTo(0);
     }];
     [self.pageVC setViewControllers:@[self.controllers.firstObject] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
-    //设置左边返回按钮的文字
-    UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithTitle:movie.title style:UIBarButtonItemStylePlain target:self action:@selector(back)];
-    self.navigationItem.leftBarButtonItem = item;
+    
+    if (self.navigationController == nil) {
+        [self.backButton setTitle:movie.title forState:UIControlStateNormal];
+        
+    }else{
+        //设置左边返回按钮的文字
+        UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithTitle:movie.title style:UIBarButtonItemStylePlain target:self action:@selector(back)];
+        self.navigationItem.leftBarButtonItem = item;
+    }
+    
+    
     [self.activity stopAnimating];
     
     self.idnVC.movie = movie;
@@ -85,7 +94,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"" style:nil target:nil action:nil];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(back)];
     //旋转提示
     self.activity = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     self.activity.color = PKQLoveColor;
@@ -96,8 +105,42 @@
     }];
     
     
+    //判断推出的的有没有导航栏控制器
+    if (self.navigationController == nil) {
+        UIView *view = [UIView new];
+        view.backgroundColor = PKQColor(246, 246, 246);
+        [self.view addSubview:view];
+        [view mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.left.right.mas_equalTo(0);
+            make.height.mas_equalTo(63);
+        }];
+        UIView *linView = [UIView new];
+        linView.backgroundColor = PKQColor(207, 207, 207);
+        [self.view addSubview:linView];
+        [linView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(63);
+            make.right.left.mas_equalTo(0);
+            make.height.mas_equalTo(1);
+        }];
+        UIButton *button = [UIButton buttonWithType:1];
+        NSString *str = @"返回";
+        [button setTitle:str forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(presentBack) forControlEvents:UIControlEventTouchUpInside];
+        [view addSubview:button];
+        [button mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(5);
+            make.bottom.mas_equalTo(-5);
+        }];
+        self.backButton = button;
+    }
+    
+    
 }
-
+//搜索推出返回
+-(void)presentBack{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+//其他地方推出返回
 -(void)back{
     [self.navigationController popToRootViewControllerAnimated:YES];
 }

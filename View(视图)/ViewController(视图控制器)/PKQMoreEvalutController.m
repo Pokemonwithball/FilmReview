@@ -10,10 +10,15 @@
 #import "Masonry.h"
 #import "UIImageView+WebCache.h"
 #import "MBProgressHUD+MJ.h"
-@interface PKQMoreEvalutController ()
+#import <AVFoundation/AVFoundation.h>
+@interface PKQMoreEvalutController ()<AVSpeechSynthesizerDelegate>
 @property (strong,nonatomic) UIScrollView *scrollView;
 @property (strong,nonatomic) UIButton *useGood;
 @property (strong,nonatomic) UIButton *useBad;
+//
+@property (strong,nonatomic) AVSpeechSynthesizer *spe;
+//
+@property (strong,nonatomic)UIBarButtonItem *readItem;
 @end
 
 @implementation PKQMoreEvalutController
@@ -23,6 +28,10 @@
     [super viewDidLoad];
     
     self.title = @"影评";
+    
+
+    
+    
     
     UIScrollView *scrollView = [[UIScrollView alloc]init];
     self.scrollView = scrollView;

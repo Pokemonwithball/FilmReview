@@ -73,7 +73,13 @@
     self.movieTime.hidden = YES;
     //电影上映时间和票长
     if (movie.mainland_pubdate && movie.durations) {
-         self.movieTime.text = [NSString stringWithFormat:@"%@ / %@",movie.mainland_pubdate,movie.durations[0]];
+        if (movie.durations.count == 0 ) {
+            self.movieTime.text = [NSString stringWithFormat:@"%@",movie.mainland_pubdate];
+        }else if (movie.mainland_pubdate.length <=2){
+            self.movieTime.text = [NSString stringWithFormat:@"%@",movie.durations[0]];
+        }else{
+            self.movieTime.text = [NSString stringWithFormat:@"%@ / %@",movie.mainland_pubdate,movie.durations[0]];
+        }
         self.movieTime.hidden = NO;
     }
     //电影属于国家
@@ -84,18 +90,22 @@
         if (i == movie.genres.count-1) {
             str = [NSString stringWithFormat:@"%@%@",str,movie.genres[i]];
         }else{
-             str = [NSString stringWithFormat:@"%@%@/",str,movie.genres[i]];
+            str = [NSString stringWithFormat:@"%@%@/",str,movie.genres[i]];
         }
     }
     self.typeLabel.text = [NSString stringWithFormat:@"%@...",str];
     //设置简介
-    self.dealLabel.text = movie.summary;
-    
-    NSDictionary *strAttrbutes = @{
-                                   NSFontAttributeName:[UIFont systemFontOfSize:14]};
-    CGRect newFrame = [movie.summary boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width-20, 999) options:NSStringDrawingUsesLineFragmentOrigin attributes:strAttrbutes context:nil];
-    self.titleH = newFrame.size.height;
-    
+//    if (movie.summary.length <=2) {
+//        self.dealLabel.text = @"";
+//    }else{
+        self.dealLabel.text = movie.summary;
+        
+        NSDictionary *strAttrbutes = @{
+                                       NSFontAttributeName:[UIFont systemFontOfSize:14]};
+        CGRect newFrame = [movie.summary boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width-20, 9999) options:NSStringDrawingUsesLineFragmentOrigin attributes:strAttrbutes context:nil];
+        self.titleH = newFrame.size.height;
+//    }
+
 }
 
 

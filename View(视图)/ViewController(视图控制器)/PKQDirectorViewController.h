@@ -10,4 +10,5 @@
 
 @interface PKQDirectorViewController : UIViewController
 @property (strong,nonatomic) NSString *ID;
+@property (strong,nonatomic) NSString *movieName;
 @end

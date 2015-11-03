@@ -97,56 +97,61 @@
     NSLog(@"播放预告片");
 }
 -(void)titleMore:(UIButton*)btn{
+    CGFloat more = self.headView.titleH -100 ;
     if (btn.selected == NO) {
-        CGFloat more = self.headView.titleH -100;
-        self.headView.view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 300+more+20);
-        self.tableView.tableHeaderView = self.headView.view;
-      
-        [UIView animateWithDuration:1.0 animations:^{
-            [btn mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.mas_equalTo(10);
-                make.right.mas_equalTo(-10);
-                make.bottom.mas_equalTo(-10);
-                make.height.mas_equalTo(115+more);
+        if (more>0) {
+            self.headView.view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 300+more+20);
+            self.tableView.tableHeaderView = self.headView.view;
+            
+            [UIView animateWithDuration:1.0 animations:^{
+                [btn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.mas_equalTo(10);
+                    make.right.mas_equalTo(-10);
+                    make.bottom.mas_equalTo(-10);
+                    make.height.mas_equalTo(115+more);
+                }];
+                
+                [self.headView.dealLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.mas_equalTo(10);
+                    make.right.mas_equalTo(-10);
+                    make.bottom.mas_equalTo(-10);
+                }];
+                btn.selected = YES;
+                
             }];
             
-            [self.headView.dealLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.mas_equalTo(10);
-                make.right.mas_equalTo(-10);
-                make.bottom.mas_equalTo(-10);
-            }];
-            btn.selected = YES;
-
-        }];
-        
+            
+        }else{
+            
+        }
     }else{
-        self.headView.view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 300);
-        self.tableView.tableHeaderView = self.headView.view;
-       
-        [UIView animateWithDuration:1.0 animations:^{
-            [btn mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.mas_equalTo(10);
-                make.right.mas_equalTo(-10);
-                make.bottom.mas_equalTo(-10);
-                make.height.mas_equalTo(95);
-            }];
+        if (more>0) {
+            self.headView.view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 300);
+            self.tableView.tableHeaderView = self.headView.view;
             
-            [self.headView.dealLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.mas_equalTo(10);
-                make.right.mas_equalTo(-10);
-                make.bottom.mas_equalTo(-10);
+            [UIView animateWithDuration:1.0 animations:^{
+                [btn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.mas_equalTo(10);
+                    make.right.mas_equalTo(-10);
+                    make.bottom.mas_equalTo(-10);
+                    make.height.mas_equalTo(95);
+                }];
+                
+                [self.headView.dealLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.mas_equalTo(10);
+                    make.right.mas_equalTo(-10);
+                    make.bottom.mas_equalTo(-10);
+                }];
+                btn.selected = NO;
             }];
-            btn.selected = NO;
-        }];
-    }
-    [self.tableView reloadData];
-    
+        }
+        [self.tableView reloadData];
+        }
 }
 
 #pragma mark - tableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     //导演和演员的数量不固定,下面还有3个评论  所以设置的是固定的tableView
-    
     self.directorNum = (self.movie.directors.count != 0) ? 1:0;
     self.castNum = (self.movie.casts.count <3) ? self.movie.casts.count  :3;
     self.popularNum = (self.movie.popular_comments.count <3) ? self.movie.popular_comments.count :3;
@@ -154,17 +159,23 @@
     return self.directorNum + self.castNum + self.popularNum;
 }
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    //无限多的判断。。。。改正
     if (indexPath.row<self.directorNum + self.castNum) {
         PKQStartTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"pkq"];
-        
-        if (indexPath.row == 0) {
-            PKQMoviesDirectorsModel *director =self.movie.directors[0];
-            cell.director = director;
-        }else{
-            PKQMoviesCastsModel *cast = self.movie.casts[indexPath.row-1];
+        if (self.directorNum == 0) {
+            PKQMoviesCastsModel *cast = self.movie.casts[indexPath.row];
             cell.cast = cast;
+            return cell;
+        }else{
+            if (indexPath.row == 0) {
+                PKQMoviesDirectorsModel *director =self.movie.directors[0];
+                cell.director = director;
+            }else{
+                PKQMoviesCastsModel *cast = self.movie.casts[indexPath.row-1];
+                cell.cast = cast;
+            }
+            return cell;
         }
-        return cell;
     }else{
         PKQPopular_commentsTableViewCell *pcell = [tableView dequeueReusableCellWithIdentifier:@"pkq2"];
         PKQMoviesPopular_commentsModel *p = self.movie.popular_comments[indexPath.row-self.directorNum-self.castNum];
@@ -190,23 +201,37 @@
 //点击事件推出
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.row == 0) {
-        PKQMoviesDirectorsModel *director =self.movie.directors[0];
-        //推出导演界面
-        PKQDirectorViewController *vc = [[PKQDirectorViewController alloc]init];
-        vc.title = self.movie.title;
-        vc.ID =director.ID;
-        [self.navigationController pushViewController:vc animated:YES];
-        
-    }else if (indexPath.row <4){
-        PKQMoviesCastsModel *cast = self.movie.casts[indexPath.row-1];
-        //推出演员界面
-        PKQDirectorViewController *vc = [[PKQDirectorViewController alloc]init];
-        vc.title = self.movie.title;
-        vc.ID =cast.ID;
-        [self.navigationController pushViewController:vc animated:YES];
+    if (self.directorNum == 0) {
+        if (indexPath.row<3) {
+            PKQMoviesCastsModel *cast = self.movie.casts[indexPath.row];
+            //推出演员界面
+            PKQDirectorViewController *vc = [[PKQDirectorViewController alloc]init];
+            vc.movieName = self.movie.title;
+            vc.ID =cast.ID;
+            [self presentViewController:vc animated:YES completion:nil];
+        }else{
+            
+        }
     }else{
+        if (indexPath.row == 0) {
+            PKQMoviesDirectorsModel *director =self.movie.directors[0];
+            //推出导演界面
+            PKQDirectorViewController *vc = [[PKQDirectorViewController alloc]init];
+            vc.movieName = self.movie.title;
+            vc.ID =director.ID;
+            [self presentViewController:vc animated:YES completion:nil];
+            
+        }else if (indexPath.row <4){
+            PKQMoviesCastsModel *cast = self.movie.casts[indexPath.row-1];
+            //推出演员界面
+            PKQDirectorViewController *vc = [[PKQDirectorViewController alloc]init];
+            vc.movieName = self.movie.title;
+            vc.ID =cast.ID;
+            [self presentViewController:vc animated:YES completion:nil];
+        }else{
+        }
     }
+    
 }
 
 
