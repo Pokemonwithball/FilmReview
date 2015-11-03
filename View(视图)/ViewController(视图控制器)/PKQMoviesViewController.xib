@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PKQMoviesViewController">
+            <connections>
+                <outlet property="cityTableView" destination="MGl-Zt-Y5H" id="pYO-sK-uCM"/>
+                <outlet property="coverView" destination="N5t-rO-1l3" id="6DT-yD-ma1"/>
+                <outlet property="mainView" destination="wvD-PC-iAy" id="Cnz-Gs-9to"/>
+                <outlet property="provinceTableView" destination="Bqx-rA-cF0" id="F1v-UQ-i8n"/>
+                <outlet property="searchDisplayController" destination="zbQ-9F-i7P" id="bQ7-rJ-20v"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wvD-PC-iAy" userLabel="主界面">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N5t-rO-1l3" userLabel="遮盖">
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            <animations/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </view>
+                    </subviews>
+                    <animations/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Bqx-rA-cF0" userLabel="provinces">
+                    <rect key="frame" x="480" y="60" width="120" height="496"/>
+                    <animations/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="120" id="eKH-EV-y12"/>
+                    </constraints>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="ucF-hH-Dxh"/>
+                        <outlet property="delegate" destination="-1" id="lZE-zB-lzI"/>
+                    </connections>
+                </tableView>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="MGl-Zt-Y5H" userLabel="city">
+                    <rect key="frame" x="480" y="60" width="120" height="496"/>
+                    <animations/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="120" id="ygK-zm-fw1"/>
+                    </constraints>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="egZ-PU-9Fr"/>
+                        <outlet property="delegate" destination="-1" id="v5u-mO-cd0"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <animations/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="wvD-PC-iAy" secondAttribute="trailing" id="AE8-w6-PeR"/>
+                <constraint firstAttribute="trailing" secondItem="MGl-Zt-Y5H" secondAttribute="trailing" id="IsP-yw-lNT"/>
+                <constraint firstAttribute="trailing" secondItem="Bqx-rA-cF0" secondAttribute="trailing" id="QRk-SX-oEg"/>
+                <constraint firstItem="Bqx-rA-cF0" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="60" id="cWu-ct-dcM"/>
+                <constraint firstAttribute="bottom" secondItem="MGl-Zt-Y5H" secondAttribute="bottom" constant="44" id="eij-k7-tp1"/>
+                <constraint firstAttribute="bottom" secondItem="Bqx-rA-cF0" secondAttribute="bottom" constant="44" id="h0l-VE-npM"/>
+                <constraint firstItem="wvD-PC-iAy" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="jrK-hy-a75"/>
+                <constraint firstAttribute="bottom" secondItem="wvD-PC-iAy" secondAttribute="bottom" id="lj0-a5-q3M"/>
+                <constraint firstItem="wvD-PC-iAy" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="yC8-20-cxp"/>
+                <constraint firstItem="MGl-Zt-Y5H" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="60" id="yke-Dg-JYN"/>
+            </constraints>
+            <point key="canvasLocation" x="460" y="367"/>
+        </view>
+        <searchDisplayController id="UIy-tF-4S3">
+            <connections>
+                <outlet property="delegate" destination="-1" id="H9R-JI-vm1"/>
+                <outlet property="searchContentsController" destination="-1" id="md0-hz-Nxx"/>
+                <outlet property="searchResultsDataSource" destination="-1" id="Bki-ag-oi4"/>
+                <outlet property="searchResultsDelegate" destination="-1" id="o1P-xE-hLO"/>
+            </connections>
+        </searchDisplayController>
+        <searchDisplayController id="zbQ-9F-i7P">
+            <connections>
+                <outlet property="delegate" destination="-1" id="xo2-nJ-u1x"/>
+                <outlet property="searchContentsController" destination="-1" id="Dco-41-oU9"/>
+                <outlet property="searchResultsDataSource" destination="-1" id="YKo-ZH-Se6"/>
+                <outlet property="searchResultsDelegate" destination="-1" id="yM1-X3-eB3"/>
+            </connections>
+        </searchDisplayController>
+    </objects>
+</document>

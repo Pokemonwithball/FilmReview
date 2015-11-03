@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="PKQ" rowHeight="116" id="KGk-i7-Jjw" customClass="PKQSearchMovieViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="290" height="100"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="257" height="99"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="神奇宝贝：不得不说的故事" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ug1-m9-shf">
+                        <rect key="frame" x="83" y="8" width="164" height="22"/>
+                        <animations/>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="神奇宝贝：不得不说的故事" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RGy-Kq-xIH">
+                        <rect key="frame" x="83" y="38" width="164" height="17"/>
+                        <animations/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="appraisal0" translatesAutoresizingMaskIntoConstraints="NO" id="cxa-TS-MX5">
+                        <rect key="frame" x="83" y="63" width="50" height="20"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="50" id="Lho-9Q-uGk"/>
+                            <constraint firstAttribute="height" constant="20" id="M6x-vJ-WPy"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9.5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hwv-pY-jyH">
+                        <rect key="frame" x="143" y="63" width="25" height="20"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="Un7-AO-Qd3"/>
+                            <constraint firstAttribute="width" constant="25" id="fN7-NR-k1e"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" red="0.96078431369999995" green="0.42745098040000001" blue="0.31372549020000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pkq1" translatesAutoresizingMaskIntoConstraints="NO" id="Q5V-zZ-R56">
+                        <rect key="frame" x="8" y="7" width="65" height="85"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="65" id="CJi-G0-4pK"/>
+                            <constraint firstAttribute="height" constant="85" id="Ow2-xG-qqz"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="暂无评价" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zek-km-aZf">
+                        <rect key="frame" x="83" y="61" width="56" height="17"/>
+                        <animations/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <animations/>
+                <constraints>
+                    <constraint firstItem="Hwv-pY-jyH" firstAttribute="top" secondItem="RGy-Kq-xIH" secondAttribute="bottom" constant="8" id="3XS-qI-bz8"/>
+                    <constraint firstItem="Q5V-zZ-R56" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="7oz-B4-lMD"/>
+                    <constraint firstItem="cxa-TS-MX5" firstAttribute="top" secondItem="RGy-Kq-xIH" secondAttribute="bottom" constant="8" id="CGQ-fh-NCo"/>
+                    <constraint firstAttribute="trailing" secondItem="RGy-Kq-xIH" secondAttribute="trailing" constant="10" id="Caf-3C-WPf"/>
+                    <constraint firstItem="RGy-Kq-xIH" firstAttribute="top" secondItem="ug1-m9-shf" secondAttribute="bottom" constant="8" id="L3m-15-TY3"/>
+                    <constraint firstItem="Zek-km-aZf" firstAttribute="top" secondItem="RGy-Kq-xIH" secondAttribute="bottom" constant="6" id="Srb-If-chh"/>
+                    <constraint firstItem="RGy-Kq-xIH" firstAttribute="leading" secondItem="Q5V-zZ-R56" secondAttribute="trailing" constant="10" id="ZHm-YR-oeT"/>
+                    <constraint firstItem="ug1-m9-shf" firstAttribute="leading" secondItem="Q5V-zZ-R56" secondAttribute="trailing" constant="10" id="fn9-I4-azt"/>
+                    <constraint firstAttribute="trailing" secondItem="ug1-m9-shf" secondAttribute="trailing" constant="10" id="gSB-ot-1PF"/>
+                    <constraint firstItem="Q5V-zZ-R56" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="iTQ-Z3-7Qq"/>
+                    <constraint firstItem="Hwv-pY-jyH" firstAttribute="leading" secondItem="cxa-TS-MX5" secondAttribute="trailing" constant="10" id="lu5-ha-bzj"/>
+                    <constraint firstItem="ug1-m9-shf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="pC3-cu-R87"/>
+                    <constraint firstItem="cxa-TS-MX5" firstAttribute="leading" secondItem="Q5V-zZ-R56" secondAttribute="trailing" constant="10" id="pOT-M1-4Jt"/>
+                    <constraint firstItem="Zek-km-aZf" firstAttribute="leading" secondItem="Q5V-zZ-R56" secondAttribute="trailing" constant="10" id="xdF-ph-Aga"/>
+                </constraints>
+            </tableViewCellContentView>
+            <animations/>
+            <connections>
+                <outlet property="averageImage" destination="cxa-TS-MX5" id="InJ-rH-hbt"/>
+                <outlet property="averageLabel" destination="Hwv-pY-jyH" id="Te9-3u-lqR"/>
+                <outlet property="averageNoLabel" destination="Zek-km-aZf" id="ApM-he-HvN"/>
+                <outlet property="iconImage" destination="Q5V-zZ-R56" id="dyk-EV-yzL"/>
+                <outlet property="subLabel" destination="RGy-Kq-xIH" id="u4S-ii-pRs"/>
+                <outlet property="titleLabel" destination="ug1-m9-shf" id="N6D-gY-V3r"/>
+            </connections>
+            <point key="canvasLocation" x="453" y="373"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="appraisal0" width="84" height="24"/>
+        <image name="pkq1" width="110" height="84"/>
+    </resources>
+</document>

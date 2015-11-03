@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="169" id="KGk-i7-Jjw" customClass="PKQPopular_commentsTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="307" height="169"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="307" height="168"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CkX-br-EsS">
+                        <rect key="frame" x="10" y="2" width="287" height="164"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="皮卡丘" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XUj-mc-CCQ">
+                                <rect key="frame" x="5" y="5" width="45" height="18"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="刚从西藏回来带着感情来观影，只是也许想表达的太多也可能是执行力不够又或者是碍于拍摄条件，总体来说故事十分松散不够抓人。这么美的地方最后成片如此，还是怪可惜的。★★" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YPM-x9-jaG">
+                                <rect key="frame" x="5" y="35" width="277" height="124"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="appraisal2" translatesAutoresizingMaskIntoConstraints="NO" id="uAd-Rj-4t4">
+                                <rect key="frame" x="55" y="5" width="70" height="25"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="MwK-fh-j8S"/>
+                                    <constraint firstAttribute="width" constant="70" id="O66-cy-bNT"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" red="0.044625946969697017" green="0.044625946969697017" blue="0.044625946969697017" alpha="0.069072001689189186" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="YPM-x9-jaG" secondAttribute="trailing" constant="5" id="DWk-ZY-ODU"/>
+                            <constraint firstItem="YPM-x9-jaG" firstAttribute="top" secondItem="uAd-Rj-4t4" secondAttribute="bottom" constant="5" id="DlY-2Z-LLH"/>
+                            <constraint firstItem="XUj-mc-CCQ" firstAttribute="top" secondItem="CkX-br-EsS" secondAttribute="top" constant="5" id="KdK-ay-rcC"/>
+                            <constraint firstAttribute="bottom" secondItem="YPM-x9-jaG" secondAttribute="bottom" constant="5" id="b1b-vI-I7V"/>
+                            <constraint firstItem="YPM-x9-jaG" firstAttribute="leading" secondItem="CkX-br-EsS" secondAttribute="leading" constant="5" id="dSa-Bq-wym"/>
+                            <constraint firstItem="uAd-Rj-4t4" firstAttribute="leading" secondItem="XUj-mc-CCQ" secondAttribute="trailing" constant="5" id="e30-LI-UiP"/>
+                            <constraint firstItem="uAd-Rj-4t4" firstAttribute="top" secondItem="XUj-mc-CCQ" secondAttribute="top" id="ijh-0j-S9k"/>
+                            <constraint firstItem="XUj-mc-CCQ" firstAttribute="leading" secondItem="CkX-br-EsS" secondAttribute="leading" constant="5" id="lwF-C0-2qE"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <animations/>
+                <constraints>
+                    <constraint firstItem="CkX-br-EsS" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="2" id="Wuc-Ts-nrX"/>
+                    <constraint firstAttribute="bottom" secondItem="CkX-br-EsS" secondAttribute="bottom" constant="2" id="c6P-C4-NPS"/>
+                    <constraint firstAttribute="trailing" secondItem="CkX-br-EsS" secondAttribute="trailing" constant="10" id="fqb-PF-PHV"/>
+                    <constraint firstItem="CkX-br-EsS" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="inb-Iq-Ffu"/>
+                </constraints>
+            </tableViewCellContentView>
+            <animations/>
+            <connections>
+                <outlet property="contentLabel" destination="YPM-x9-jaG" id="Cqg-RZ-oEI"/>
+                <outlet property="iconView" destination="uAd-Rj-4t4" id="xZs-HZ-TOF"/>
+                <outlet property="titleLabel" destination="XUj-mc-CCQ" id="0pV-00-FtO"/>
+            </connections>
+            <point key="canvasLocation" x="447.5" y="353.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="appraisal2" width="61" height="17"/>
+    </resources>
+</document>
