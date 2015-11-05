@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="131" id="KGk-i7-Jjw" customClass="PKQCollectCinemaCell">
+            <rect key="frame" x="0.0" y="0.0" width="295" height="60"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="295" height="59"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="点击添加我常去的影院" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tkS-IB-blC">
+                        <rect key="frame" x="63" y="19" width="212" height="21"/>
+                        <animations/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_collect@2x" translatesAutoresizingMaskIntoConstraints="NO" id="zsk-46-lj9">
+                        <rect key="frame" x="8" y="5" width="50" height="50"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="50" id="Dsu-Zl-nMd"/>
+                            <constraint firstAttribute="height" constant="50" id="dUq-KL-t5R"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <animations/>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="tkS-IB-blC" secondAttribute="trailing" constant="20" id="9gn-57-Ucy"/>
+                    <constraint firstItem="zsk-46-lj9" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="AEY-gr-PGP"/>
+                    <constraint firstItem="zsk-46-lj9" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="K5l-1I-iOb"/>
+                    <constraint firstItem="tkS-IB-blC" firstAttribute="leading" secondItem="zsk-46-lj9" secondAttribute="trailing" constant="5" id="PPA-Qf-TV5"/>
+                    <constraint firstItem="tkS-IB-blC" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="gJY-8C-fVq"/>
+                </constraints>
+            </tableViewCellContentView>
+            <animations/>
+            <connections>
+                <outlet property="collectImage" destination="zsk-46-lj9" id="toY-3P-zbj"/>
+                <outlet property="titleLabel" destination="tkS-IB-blC" id="iVO-lv-o7C"/>
+            </connections>
+            <point key="canvasLocation" x="482.5" y="335"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="icon_collect@2x" width="172" height="174"/>
+    </resources>
+</document>

@@ -10,19 +10,11 @@
 #import "PKQMovieViewController.h"
 #import "PKQScrollView.h"
 #import "PKQReleaseViewController.h"
-#import "UIView+AutoLayout.h"
-#import "Masonry.h"
-#import "PKQTool.h"
 #import "PKQProvince.h"
 #import "PKQCity.h"
-#import "PKQConst.h"
-#import "AFNetworking.h"
 #import "PKQReleas.h"
-#import "MJExtension.h"
 #import "PKQScrollViewController.h"
 #import "PKQMoviesModel.h"
-#import "MBProgressHUD+MJ.h"
-#import "UIBarButtonItem+Extension.h"
 #import "PKQSearchController.h"
 
 
@@ -46,10 +38,11 @@
 /*城市信息的存放地址*/
 @property (strong,nonatomic) NSString* cityPath;
 /*pageViewControll*/
-@property (strong,nonatomic) PKQScrollViewController* scrollVC;
+//@property (strong,nonatomic) PKQScrollViewController* scrollVC;
 /*电影详情*/
 @property (strong,nonatomic) PKQMoviesModel* movie;
-
+//当前选择的城市
+@property (strong,nonatomic) NSString *selectCity;
 
 
 @end
@@ -146,7 +139,8 @@
     NSString *cityName = notification.userInfo[PKQSelectCity];
     //设置导航栏上面的城市按钮
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:cityName style:UIBarButtonItemStyleDone target:self action:@selector(changCiry:)];
-    
+    //保存当前城市的名字
+    self.selectCity = cityName;
     //发送网络请求然后刷新表格
     NSString *strUrl = @"https://api.douban.com/v2/movie/in_theaters";
     NSString *urlstr = [[NSString alloc]initWithFormat:@"%@?city=%@",strUrl,cityName];
@@ -191,12 +185,11 @@
     dict[@"alt"] = @"json";
     dict[@"apikey"] = @"0df993c66c0c636e29ecbb5344252a4a";
     dict[@"app_name"] = @"doubanmovie";
-    dict[@"city"] = @"北京";
     dict[@"client"] = @"e%3AiPhone8%2C2%7Cy%3AiPhone%20OS_9.0.2%7Cs%3Amobile%7Cf%3Adoubanmovie_2%7Cv%3A3.6.7%7Cm%3A%E8%B1%86%E7%93%A3%E7%94%B5%E5%BD%B1%7Cudid%3A2f6386d033b0a1f01f6a32b4db14558ccc4abe57";
     dict[@"douban_udid"] = @"c3a8887c60f551117c1859548c56ea60f35b6295";
     dict[@"udid"] = @"2f6386d033b0a1f01f6a32b4db14558ccc4abe57";
     dict[@"version"] = @"2";
-    
+    dict[@"city"] = self.selectCity;
     
     PKQScrollViewController *scrollVC = [[PKQScrollViewController alloc]initWithControllers];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];

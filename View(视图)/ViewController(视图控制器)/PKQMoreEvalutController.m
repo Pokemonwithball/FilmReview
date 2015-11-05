@@ -23,12 +23,34 @@
 
 @implementation PKQMoreEvalutController
 
+-(UIBarButtonItem *)readItem{
+    if (!_readItem) {
+        _readItem = [[UIBarButtonItem alloc]initWithTitle:@"朗读" style:UIBarButtonItemStylePlain target:self action:@selector(speak)];
+    }
+    return _readItem;
+}
+-(AVSpeechSynthesizer *)spe{
+    if (!_spe) {
+        _spe = [AVSpeechSynthesizer new];
+        //设置代理监听说话的时机
+        _spe.delegate = self;
+    }
+    return _spe;
+}
+
+//当这个视图消失的时候
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.spe stopSpeakingAtBoundary:AVSpeechBoundaryImmediate];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.title = @"影评";
     
+    //读文字
+    self.navigationItem.rightBarButtonItem = self.readItem;
 
     
     
@@ -110,7 +132,8 @@
     [useGood setTintColor:[UIColor whiteColor]];
     [useGood setTitle:[NSString stringWithFormat:@"有用 %@",self.review.useful_count] forState:UIControlStateNormal];
     [useGood setTitle:[NSString stringWithFormat:@"有用 %@",self.review.useful_count] forState:UIControlStateSelected];
-    useGood.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
+    useGood.backgroundColor = [UIColor grayColor];
+    //设置圆角为15
     useGood.layer.cornerRadius = 15;
     [useGood addTarget:self action:@selector(goodBtnUpInside:) forControlEvents:UIControlEventTouchUpInside];
     self.useGood = useGood;
@@ -126,7 +149,7 @@
     [useBad setTintColor:[UIColor whiteColor]];
     [useBad setTitle:[NSString stringWithFormat:@"没用 %@",self.review.useless_count] forState:UIControlStateNormal];
     [useBad setTitle:[NSString stringWithFormat:@"没用 %@",self.review.useless_count] forState:UIControlStateSelected];
-    useBad.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
+    useBad.backgroundColor = [UIColor grayColor];
     [useBad addTarget:self action:@selector(badBtnUpInside:) forControlEvents:UIControlEventTouchUpInside];
     useBad.layer.cornerRadius = 15;
     self.useBad = useBad;
@@ -140,6 +163,31 @@
     
     
 }
+//判断是不是在读
+-(void)speak{
+    if (self.spe.speaking) {
+        //这个是立刻停止 还有一个是读完当前的那个单词
+        [self.spe stopSpeakingAtBoundary:AVSpeechBoundaryImmediate];
+    }else{
+        AVSpeechUtterance *utt = [AVSpeechUtterance speechUtteranceWithString:self.review.content];
+        utt.voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"zh_CN"];
+        [self.spe speakUtterance:utt];
+    }
+}
+
+//语言功能的监听方法
+//取消
+- (void)speechSynthesizer:(AVSpeechSynthesizer *)synthesizer didCancelSpeechUtterance:(AVSpeechUtterance *)utterance{
+    self.readItem.title = @"朗读";
+}
+
+- (void)speechSynthesizer:(AVSpeechSynthesizer *)synthesizer didStartSpeechUtterance:(AVSpeechUtterance *)utterance{
+    self.readItem.title = @"停止";
+}
+- (void)speechSynthesizer:(AVSpeechSynthesizer *)synthesizer didFinishSpeechUtterance:(AVSpeechUtterance *)utterance{
+    self.readItem.title = @"朗读";
+}
+
 
 -(void)goodBtnUpInside:(UIButton*)btn{
     if (btn.selected == YES) {
@@ -150,7 +198,7 @@
         btn.backgroundColor = [UIColor blueColor];
         btn.selected = YES;
         self.useBad.selected = !btn.selected;
-        self.useBad.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
+        self.useBad.backgroundColor = [UIColor grayColor];
         NSLog(@"发出影评点赞的网络信息");
         [MBProgressHUD showSuccess:@"正在投票" toView:self.view];
     }
@@ -165,7 +213,7 @@
         btn.selected = YES;
         btn.backgroundColor = [UIColor blueColor];
         self.useGood.selected = !btn.selected;
-        self.useGood.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
+        self.useGood.backgroundColor = [UIColor grayColor];
         NSLog(@"发出影评差评的网络信息");
         [MBProgressHUD showSuccess:@"正在投票" toView:self.view];
     }

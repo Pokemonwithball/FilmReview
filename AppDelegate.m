@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "PKQMoviesViewController.h"
-#import "PKQCinemaTableViewController.h"
+#import "PKQCinemaViewController.h"
 #import "PKQSelfTableViewController.h"
 @interface AppDelegate ()
 
@@ -23,7 +23,7 @@
     PKQMoviesViewController *movieVC = [[PKQMoviesViewController alloc]initWithNibName:@"PKQMoviesViewController" bundle:nil];
     UINavigationController *naviVc1 = [[UINavigationController alloc]initWithRootViewController:movieVC];
     
-    PKQCinemaTableViewController *cinemaVC = [[PKQCinemaTableViewController alloc]initWithNibName:@"PKQCinemaTableViewController" bundle:nil];
+    PKQCinemaViewController *cinemaVC = [[PKQCinemaViewController alloc]initWithNibName:@"PKQCinemaViewController" bundle:nil];
     UINavigationController *naviVc2 = [[UINavigationController alloc]initWithRootViewController:cinemaVC];
     
     PKQSelfTableViewController *selfVC = [[PKQSelfTableViewController alloc]initWithNibName:@"PKQSelfTableViewController" bundle:nil];

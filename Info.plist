@@ -37,5 +37,9 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>申请定位</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>程序运行时定位</string>
 </dict>
 </plist>

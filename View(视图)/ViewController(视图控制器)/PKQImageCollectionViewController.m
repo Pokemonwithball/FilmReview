@@ -72,6 +72,9 @@ static NSString * const reuseIdentifier = @"pkq";
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:str parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         PKQStillsModel *still = [PKQStillsModel objectWithKeyValues:responseObject];
+        if (self.items >= still.entry.count) {
+            self.items = still.entry.count;
+        }
         NSMutableArray *array = [NSMutableArray new];
         for (PKQStillsEntryModel *entry in still.entry) {
             PKQStillsEntryLinkModel *link = entry.link[3];
