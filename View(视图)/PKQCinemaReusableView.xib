@@ -12,7 +12,7 @@
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="皮卡丘和他的朋友们" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RUd-by-v9w">
-                    <rect key="frame" x="10" y="10" width="303" height="20"/>
+                    <rect key="frame" x="12" y="10" width="301" height="20"/>
                     <animations/>
                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -38,17 +38,24 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_cell_rightArrow" translatesAutoresizingMaskIntoConstraints="NO" id="9gC-v4-Fpn">
-                    <rect key="frame" x="293" y="33" width="30" height="35"/>
+                    <rect key="frame" x="298" y="38" width="25" height="25"/>
                     <animations/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="30" id="3UO-Io-ljx"/>
-                        <constraint firstAttribute="height" constant="35" id="kET-u6-Jdq"/>
+                        <constraint firstAttribute="width" constant="25" id="3UO-Io-ljx"/>
+                        <constraint firstAttribute="height" constant="25" id="kET-u6-Jdq"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="150758人评价" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xz6-Xm-iL7">
-                    <rect key="frame" x="115" y="45" width="168" height="17"/>
+                    <rect key="frame" x="115" y="45" width="173" height="17"/>
                     <animations/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="暂无评分" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cjI-ZD-jbu">
+                    <rect key="frame" x="10" y="42" width="278" height="18"/>
+                    <animations/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -62,13 +69,6 @@
                         <action selector="goMovieDeatil:" destination="U6b-Vx-4bR" eventType="touchUpInside" id="aQP-6L-dcL"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="暂无评分" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cjI-ZD-jbu">
-                    <rect key="frame" x="10" y="42" width="273" height="18"/>
-                    <animations/>
-                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                    <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
             </subviews>
             <animations/>
             <constraints>
@@ -76,7 +76,7 @@
                 <constraint firstAttribute="trailing" secondItem="9gC-v4-Fpn" secondAttribute="trailing" id="5Th-4G-glr"/>
                 <constraint firstItem="cjI-ZD-jbu" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" constant="10" id="6Vw-Dc-XeN"/>
                 <constraint firstItem="wvV-rM-7CC" firstAttribute="top" secondItem="RUd-by-v9w" secondAttribute="bottom" constant="13" id="AQi-Yh-ukF"/>
-                <constraint firstItem="RUd-by-v9w" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" constant="10" id="D1G-12-i7G"/>
+                <constraint firstItem="RUd-by-v9w" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" constant="12" id="D1G-12-i7G"/>
                 <constraint firstAttribute="trailing" secondItem="RUd-by-v9w" secondAttribute="trailing" constant="10" id="GJW-zU-k7l"/>
                 <constraint firstItem="cjI-ZD-jbu" firstAttribute="top" secondItem="RUd-by-v9w" secondAttribute="bottom" constant="12" id="NUK-SQ-iE9"/>
                 <constraint firstItem="RUd-by-v9w" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" constant="10" id="PyT-ON-T3R"/>
@@ -93,6 +93,7 @@
             </constraints>
             <connections>
                 <outlet property="fractionNOLabel" destination="cjI-ZD-jbu" id="m2i-bq-kmS"/>
+                <outlet property="goToButton" destination="YqR-xy-EFr" id="gTv-my-ROV"/>
                 <outlet property="iconLabel" destination="AdZ-11-byS" id="oyx-18-9Oc"/>
                 <outlet property="numberLabel" destination="wvV-rM-7CC" id="6vW-1A-4Fu"/>
                 <outlet property="peopleLabel" destination="Xz6-Xm-iL7" id="Go9-XX-Cpo"/>

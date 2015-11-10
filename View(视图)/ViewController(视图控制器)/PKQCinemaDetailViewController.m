@@ -14,8 +14,8 @@
 #import "PKQCinemaTickerCell.h"
 #import "PKQCinemaReusableView.h"
 #import "PKQScrollViewController.h"
-
-@interface PKQCinemaDetailViewController ()<iCarouselDelegate,iCarouselDataSource,UICollectionViewDelegate,UICollectionViewDataSource,PKQCinemaReusableViewDelegate>
+#import "PKQCinemaViewController.h"
+@interface PKQCinemaDetailViewController ()<iCarouselDelegate,iCarouselDataSource,UICollectionViewDelegate,UICollectionViewDataSource,PKQCinemaReusableViewDelegate,UINavigationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *mapBtn;
 @property (weak, nonatomic) IBOutlet UIButton *phoneBtn;
 @property (weak, nonatomic) IBOutlet UIButton *huiBtn;
@@ -29,16 +29,26 @@
 
 @property (strong,nonatomic) iCarousel* ic;
 @property (strong,nonatomic) UIActivityIndicatorView *activity;
-//当前选择的电影的电影票
-@property (strong,nonatomic)PKQCinemaMovieEntriesModel *movieTicket;
+//当前选择的电影的全部电影票
+@property (strong,nonatomic)NSArray *movieTicket;
 //全部上映时间的数组
 @property (strong,nonatomic)NSArray* dateArray;
+//选择的天的电影票信息
+@property (strong,nonatomic)NSArray* selectMovieTicket;
 
 @property (strong,nonatomic)PKQCinemaReusableView *reusableView;
 
 @end
 
 @implementation PKQCinemaDetailViewController
+-(NSArray *)selectMovieTicket{
+    if (!_selectMovieTicket) {
+        _selectMovieTicket = [NSArray new];
+    }
+    return _selectMovieTicket;
+}
+
+
 -(NSArray *)dateArray{
     if (!_dateArray) {
         _dateArray = [NSArray new];
@@ -52,7 +62,7 @@
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
         // cell的大小
         CGFloat inset = 10.0;
-        layout.itemSize = CGSizeMake((kWindowW-4*inset)/3, 80);
+        layout.itemSize = CGSizeMake((kWindowW-4*inset)/3, 70);
         layout.sectionInset = UIEdgeInsetsMake(inset, inset, inset, inset);
         layout.headerReferenceSize = CGSizeMake(0, inset*10);
         _collectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:layout];
@@ -64,6 +74,7 @@
         //注册
         [_collectionView registerNib:[UINib nibWithNibName:@"PKQCinemaTickerCell" bundle:nil] forCellWithReuseIdentifier:@"pkq"];
         [_collectionView registerNib:[UINib nibWithNibName:@"PKQCinemaReusableView" bundle:nil]   forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"Identifierhead"];
+        _collectionView.showsVerticalScrollIndicator = NO;
     }
     return _collectionView;
 }
@@ -122,21 +133,27 @@
         for (int i=0; i<allMovies.count; i++) {
             
             if (i == allMovies.count-1) {
-                PKQCinemaMovieEntriesModel *movieB = allMovies[i-1];
+                //                PKQCinemaMovieEntriesModel *movieB = allMovies[i-1];
                 PKQCinemaMovieEntriesModel *movieN = allMovies[i];
-                if ([movieB.subject.images.medium isEqualToString:movieN.subject.images.medium]) {
+                //                if ([movieB.subject.images.medium isEqualToString:movieN.subject.images.medium]) {
+                //                    [nameArray addObject:movieN.subject.images.medium];
+                //                }
+                if ([movieN.subject.images.medium isEqualToString:str]) {
+                    
+                }else{
                     [nameArray addObject:movieN.subject.images.medium];
                 }
+                
                 
             }else{
                 
                 PKQCinemaMovieEntriesModel *movieB = allMovies[i];
                 PKQCinemaMovieEntriesModel *movieN = allMovies[i+1];
                 if (![movieB.subject.images.medium isEqualToString:movieN.subject.images.medium]) {
-                    if ([movieB.subject.images.medium isEqualToString:str]) {
+                    if ([movieN.subject.images.medium isEqualToString:str]) {
                         
                     }else{
-                        [nameArray addObject:movieB.subject.images.medium];
+                        [nameArray addObject:movieN.subject.images.medium];
                     }
                     str = nameArray.lastObject;
                 }
@@ -145,22 +162,7 @@
         
     }
     
-    //    NSMutableArray *array = nameArray;
-    //    //上面的判断有问题。。数据有问题！！！！
-    //    for (NSString *str in nameArray) {
-    //        int intager = 0;
-    //        for (int i=0; i<nameArray.count; i++) {
-    //            if ([str isEqualToString:nameArray[i]]) {
-    //                intager++;
-    //                if (intager>1) {
-    //                    [array removeObject:str];
-    //                }
-    //            }
-    //        }
-    //    }
-    
     self.allMoviesIcon = [self arrayWithMemberIsOnly:nameArray];
-    
     //刷新滚动条的数据
     [self.ic reloadData];
     [self.activity stopAnimating];
@@ -178,17 +180,26 @@
     return categoryArray;
 }
 
-
-//当界面退出的时候清除数据库
--(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-    [PKQSqlit removeAllMoviesTicketDeals];
+//当退回去的时候清除数据库
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated{
+    if ([viewController isKindOfClass:[PKQCinemaViewController class]]) {
+        [PKQSqlit removeAllMoviesTicketDeals];
+    }
 }
+//当程序这个界面退出的时候释放
+- (void)didEnterBackground:(NSNotification *)notification
+{
+    self.allMovies= nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextFieldTextDidChangeNotification object:nil];
+    [self.presentedViewController dismissViewControllerAnimated:NO completion:nil];
+}
+
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    //进入这个界面的时候也清空数据库
+    [PKQSqlit removeAllMoviesTicketDeals];
     self.title = self.model.title;
     self.addressLabel.text = self.model.location.address;
     
@@ -236,6 +247,7 @@
     
     
 }
+
 -(void)getCinemaAllMovies{
     //    http://api.douban.com/v2/movie/cinema/143039/schedule?
     //    alt=json&
@@ -277,17 +289,6 @@
     }];
     
 }
-
-
-
-//当程序这个界面退出的时候释放
-- (void)didEnterBackground:(NSNotification *)notification
-{
-    self.allMovies= nil;
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextFieldTextDidChangeNotification object:nil];
-    [self.presentedViewController dismissViewControllerAnimated:NO completion:nil];
-}
-
 
 
 
@@ -456,9 +457,11 @@
         for (int i=0; i<movieTicket.count; i++) {
             
             if (i == movieTicket.count-1) {
-                PKQCinemaMovieEntriesModel *movieB = movieTicket[i-1];
+                
                 PKQCinemaMovieEntriesModel *movieN = movieTicket[i];
-                if ([movieB.date isEqualToString:movieN.date]) {
+                if ([movieN.date isEqualToString:str]) {
+                    
+                }else{
                     [nameArray addObject:movieN.date];
                 }
                 
@@ -467,10 +470,10 @@
                 PKQCinemaMovieEntriesModel *movieB = movieTicket[i];
                 PKQCinemaMovieEntriesModel *movieN = movieTicket[i+1];
                 if (![movieB.date isEqualToString:movieN.date]) {
-                    if ([movieB.date isEqualToString:str]) {
+                    if ([movieN.date isEqualToString:str]) {
                         
                     }else{
-                        [nameArray addObject:movieB.date];
+                        [nameArray addObject:movieN.date];
                     }
                     str = nameArray.lastObject;
                 }
@@ -478,10 +481,24 @@
         }
         
     }
+    //把最近的那一天拿出来，然后展示了那一天那个电影的电影票信息。
     self.dateArray = [self arrayWithMemberIsOnly:nameArray];
-    self.movieTicket = movieTicket.firstObject;
+    self.movieTicket = movieTicket;
+    
+    NSArray *array2 = [self.dateArray sortedArrayUsingSelector:@selector(compare:)];
+    self.dateArray = array2;
+    
+    NSMutableArray *muArray = [NSMutableArray new];
+    for (PKQCinemaMovieEntriesModel* model in movieTicket) {
+        if ([model.date isEqualToString:array2.firstObject]) {
+            [muArray addObject:model];
+        }
+    }
+    
+    self.selectMovieTicket = muArray;
     
     [self.collectionView reloadData];
+//    [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
 }
 
 
@@ -489,11 +506,12 @@
 #pragma mark -- UICollectionDegate
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return 10;
+    return self.selectMovieTicket.count;
 }
 
 -(UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     PKQCinemaTickerCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"pkq" forIndexPath:indexPath];
+    cell.model = self.selectMovieTicket[indexPath.item];
     return cell;
 }
 
@@ -501,13 +519,16 @@
 {
     PKQCinemaReusableView *headView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"Identifierhead" forIndexPath:indexPath];
     //传入数据
-    headView.model = self.movieTicket;
+    headView.model = self.movieTicket.firstObject;
+    headView.dateArray = self.dateArray;
     headView.delegate = self;
     self.reusableView = headView;
     headView.backgroundColor = [UIColor whiteColor];
     return headView;
 }
 
+#pragma mark --PKQCinemaReusableViewDelegate
+/*发送网络请求和跳转界面*/
 -(void)view:(PKQCinemaReusableView *)view goToMovieDetailWithMovieID:(NSString *)dbId{
     NSString *str = [NSString stringWithFormat:@"http://api.douban.com/v2/movie/subject/%@",dbId];
     
@@ -536,7 +557,19 @@
     [self.navigationController pushViewController:scrollVC animated:YES];
     
 }
+//选择了第几天
+-(void)view:(PKQCinemaReusableView *)view selectDate:(NSInteger)indexPath{
+    NSMutableArray *muArray = [NSMutableArray new];
+    for (PKQCinemaMovieEntriesModel* model in self.movieTicket) {
+        if ([model.date isEqualToString:self.dateArray[indexPath]]) {
+            [muArray addObject:model];
+        }
+    }
+    
+    self.selectMovieTicket = muArray;
+    [self.collectionView reloadData];
 
+}
 
 
 @end

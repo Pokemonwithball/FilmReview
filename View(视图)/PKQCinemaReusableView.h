@@ -12,9 +12,16 @@
 @protocol PKQCinemaReusableViewDelegate <NSObject>
 
 -(void)view:(PKQCinemaReusableView*)view goToMovieDetailWithMovieID:(NSString*)dbId;
+
+-(void)view:(PKQCinemaReusableView *)view selectDate:(NSInteger)indexPath;
+
 @end
 
 @interface PKQCinemaReusableView : UICollectionReusableView
+/*当前选择的电影信息*/
 @property (strong,nonatomic) PKQCinemaMovieEntriesModel *model;
+/*时间的数组*/
+@property (strong,nonatomic) NSArray* dateArray;
+
 @property (strong,nonatomic)id<PKQCinemaReusableViewDelegate> delegate;
 @end

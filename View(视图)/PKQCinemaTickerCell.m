@@ -19,7 +19,30 @@
 
 -(void)setModel:(PKQCinemaMovieEntriesModel *)model{
     _model = model;
-    self.timeLabel.text = model.date;
+    
+    self.backgroundColor = PKQLoveColor;
+    //判断是不是在购买时间里
+    NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];//实例化一个NSDateFormatter对象
+    [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];//设定时间格式,要注意跟下面的dateString匹配，否则日起将无效
+    NSDate *ticket = [dateFormat dateFromString:model.time];
+    NSTimeInterval endTime = [ticket timeIntervalSinceReferenceDate];
+   NSTimeInterval nowTime=[NSDate timeIntervalSinceReferenceDate];
+    if (endTime - nowTime < 10*60) {
+        self.backgroundColor = [UIColor lightGrayColor];
+                self.userInteractionEnabled = NO;
+    }
+    //能不能预定
+    if (!model.bookable) {
+        self.backgroundColor = [UIColor lightGrayColor];
+        self.userInteractionEnabled = NO;
+    }
+
+    
+    NSInteger count = model.date.length;
+    NSString *time = [model.time substringFromIndex:count+1];
+    time = [time substringToIndex:5];
+    
+    self.timeLabel.text = time;
     self.speakLabel.text = [NSString stringWithFormat:@"%@%@",model.version,model.language];
     self.moneyLabel.text = [NSString stringWithFormat:@"￥%@",model.price];
 //    self.layer.contentsRect = 3;
