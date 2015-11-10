@@ -15,7 +15,7 @@
 - (NSDictionary *)objectClassInArray{
     return @{@"entries" : [PKQCinemaMovieEntriesModel class]};
 }
-
+MJCodingImplementation
 
 @end
 
@@ -27,7 +27,7 @@
 -(NSDictionary*)replacedKeyFromPropertyName{
     return @{@"ID":@"id"};
 }
-
+MJCodingImplementation
 @end
 
 
@@ -35,11 +35,12 @@
 -(NSDictionary*)replacedKeyFromPropertyName{
     return @{@"ID":@"id"};
 }
+MJCodingImplementation
 @end
 
 
 @implementation PKQCinemaMovieEntriesSubjectImagesModel
-
+MJCodingImplementation
 @end
 
 
@@ -47,6 +48,7 @@
 -(NSDictionary*)replacedKeyFromPropertyName{
     return @{@"ID":@"id"};
 }
+MJCodingImplementation
 @end
 
 
@@ -54,21 +56,22 @@
 -(NSDictionary*)replacedKeyFromPropertyName{
     return @{@"ID":@"id"};
 }
+MJCodingImplementation
 @end
 
 
 @implementation PKQCinemaMovieEntriesSiteImagesModel
-
+MJCodingImplementation
 @end
 
 
 @implementation PKQCinemaMovieEntriesSiteImagesLocationModel
-
+MJCodingImplementation
 @end
 
 
 @implementation PKQCinemaMovieEntriesSiteImagesLocationCoordinateModel
-
+MJCodingImplementation
 @end
 
 

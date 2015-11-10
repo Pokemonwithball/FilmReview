@@ -12,18 +12,23 @@
 @property (weak, nonatomic) IBOutlet UIImageView *iconView;
 @property (weak, nonatomic) IBOutlet UILabel *titleName;
 @property (weak, nonatomic) IBOutlet UILabel *englishName;
+@property (weak, nonatomic) IBOutlet UIView *downView;
 
 @end
 
 @implementation PKQStartTableViewCell
 -(void)setDirector:(PKQMoviesDirectorsModel *)director{
     _director = director;
+    self.iconView.contentMode = UIViewContentModeScaleAspectFill;
+    self.downView.clipsToBounds = YES;
     [self.iconView sd_setImageWithURL:director.avatars[@"small"]];
     self.titleName.text = [NSString stringWithFormat:@"%@[导演]",director.name];
     self.englishName.text = director.name_en;
 }
 -(void)setCast:(PKQMoviesCastsModel *)cast{
     _cast = cast;
+    self.iconView.contentMode = UIViewContentModeScaleAspectFill;
+    self.downView.clipsToBounds = YES;
     [self.iconView sd_setImageWithURL:cast.avatars[@"small"] placeholderImage:[UIImage imageNamed:@"noImage"]];
     self.titleName.text = cast.name;
     self.englishName.text = cast.name_en;

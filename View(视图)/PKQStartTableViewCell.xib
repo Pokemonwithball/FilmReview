@@ -14,59 +14,73 @@
                 <rect key="frame" x="0.0" y="0.0" width="262" height="89"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qng-g7-0pN">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qng-g7-0pN" userLabel="灰">
                         <rect key="frame" x="10" y="2" width="242" height="85"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pkq1" translatesAutoresizingMaskIntoConstraints="NO" id="bes-m4-twf">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wiu-RC-HQg">
                                 <rect key="frame" x="10" y="10" width="60" height="65"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pkq1" translatesAutoresizingMaskIntoConstraints="NO" id="bes-m4-twf">
+                                        <rect key="frame" x="0.0" y="0.0" width="60" height="65"/>
+                                        <animations/>
+                                    </imageView>
+                                </subviews>
                                 <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="60" id="p25-71-snU"/>
+                                    <constraint firstItem="bes-m4-twf" firstAttribute="top" secondItem="Wiu-RC-HQg" secondAttribute="top" id="Nc2-Wo-dQP"/>
+                                    <constraint firstAttribute="trailing" secondItem="bes-m4-twf" secondAttribute="trailing" id="WVW-o3-BPb"/>
+                                    <constraint firstAttribute="bottom" secondItem="bes-m4-twf" secondAttribute="bottom" id="aZS-Qv-mTM"/>
+                                    <constraint firstItem="bes-m4-twf" firstAttribute="leading" secondItem="Wiu-RC-HQg" secondAttribute="leading" id="kGl-Ao-ZOQ"/>
+                                    <constraint firstAttribute="width" constant="60" id="n1g-e2-o7W"/>
                                 </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="my name is" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nyh-fm-0vk">
-                                <rect key="frame" x="80" y="46" width="78" height="18"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <color key="textColor" white="0.0" alpha="0.49881228885135137" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="不知道是谁" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LYZ-Z5-GbA">
-                                <rect key="frame" x="80" y="15" width="85" height="21"/>
+                                <rect key="frame" x="80" y="15" width="152" height="21"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="my name is" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nyh-fm-0vk">
+                                <rect key="frame" x="80" y="46" width="152" height="18"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" white="0.0" alpha="0.49881228885135137" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" red="0.031999684343434365" green="0.031999684343434365" blue="0.031999684343434365" alpha="0.064189189189189186" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="Nyh-fm-0vk" firstAttribute="leading" secondItem="bes-m4-twf" secondAttribute="trailing" constant="10" id="4Kq-QQ-Wx2"/>
-                            <constraint firstItem="Nyh-fm-0vk" firstAttribute="top" secondItem="LYZ-Z5-GbA" secondAttribute="bottom" constant="10" id="6Dm-qp-b3k"/>
-                            <constraint firstItem="bes-m4-twf" firstAttribute="top" secondItem="qng-g7-0pN" secondAttribute="top" constant="10" id="Kd3-5T-trR"/>
-                            <constraint firstAttribute="bottom" secondItem="bes-m4-twf" secondAttribute="bottom" constant="10" id="YJ1-y3-h9f"/>
-                            <constraint firstItem="bes-m4-twf" firstAttribute="leading" secondItem="qng-g7-0pN" secondAttribute="leading" constant="10" id="YVR-S5-FgE"/>
-                            <constraint firstItem="LYZ-Z5-GbA" firstAttribute="leading" secondItem="bes-m4-twf" secondAttribute="trailing" constant="10" id="h5U-lr-3Cu"/>
-                            <constraint firstItem="LYZ-Z5-GbA" firstAttribute="top" secondItem="qng-g7-0pN" secondAttribute="top" constant="15" id="ukJ-26-81H"/>
+                            <constraint firstItem="LYZ-Z5-GbA" firstAttribute="leading" secondItem="Wiu-RC-HQg" secondAttribute="trailing" constant="10" id="5Rg-6h-85n"/>
+                            <constraint firstItem="Wiu-RC-HQg" firstAttribute="top" secondItem="qng-g7-0pN" secondAttribute="top" constant="10" id="7Dp-Ua-T8k"/>
+                            <constraint firstItem="Nyh-fm-0vk" firstAttribute="leading" secondItem="Wiu-RC-HQg" secondAttribute="trailing" constant="10" id="B7e-ni-Qvo"/>
+                            <constraint firstAttribute="trailing" secondItem="LYZ-Z5-GbA" secondAttribute="trailing" constant="10" id="Fkw-YS-f8E"/>
+                            <constraint firstItem="LYZ-Z5-GbA" firstAttribute="top" secondItem="qng-g7-0pN" secondAttribute="top" constant="15" id="TOu-gI-vM5"/>
+                            <constraint firstItem="Nyh-fm-0vk" firstAttribute="top" secondItem="LYZ-Z5-GbA" secondAttribute="bottom" constant="10" id="WHf-bV-XwN"/>
+                            <constraint firstItem="Wiu-RC-HQg" firstAttribute="leading" secondItem="qng-g7-0pN" secondAttribute="leading" constant="10" id="Zc3-MB-23F"/>
+                            <constraint firstAttribute="bottom" secondItem="Wiu-RC-HQg" secondAttribute="bottom" constant="10" id="liU-1I-7FU"/>
+                            <constraint firstAttribute="trailing" secondItem="Nyh-fm-0vk" secondAttribute="trailing" constant="10" id="zSS-Kt-ZBU"/>
                         </constraints>
                     </view>
                 </subviews>
                 <animations/>
                 <constraints>
-                    <constraint firstItem="qng-g7-0pN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="2" id="IN1-gh-eHe"/>
-                    <constraint firstAttribute="trailing" secondItem="qng-g7-0pN" secondAttribute="trailing" constant="10" id="OhQ-6S-igy"/>
-                    <constraint firstAttribute="bottom" secondItem="qng-g7-0pN" secondAttribute="bottom" constant="2" id="dyC-iJ-uq3"/>
-                    <constraint firstItem="qng-g7-0pN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="zje-Cu-uUL"/>
+                    <constraint firstAttribute="trailing" secondItem="qng-g7-0pN" secondAttribute="trailing" constant="10" id="AUF-zc-aeA"/>
+                    <constraint firstItem="qng-g7-0pN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="2" id="Eg8-ZE-RuU"/>
+                    <constraint firstItem="qng-g7-0pN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="NJF-my-MYA"/>
+                    <constraint firstAttribute="bottom" secondItem="qng-g7-0pN" secondAttribute="bottom" constant="2" id="hTM-i2-tTV"/>
                 </constraints>
             </tableViewCellContentView>
             <animations/>
             <connections>
+                <outlet property="downView" destination="Wiu-RC-HQg" id="pej-jZ-A5z"/>
                 <outlet property="englishName" destination="Nyh-fm-0vk" id="FWC-7b-KP2"/>
                 <outlet property="iconView" destination="bes-m4-twf" id="K1z-Zl-GPf"/>
                 <outlet property="titleName" destination="LYZ-Z5-GbA" id="Jlh-qh-iCM"/>
             </connections>
-            <point key="canvasLocation" x="425" y="465"/>
+            <point key="canvasLocation" x="425" y="469"/>
         </tableViewCell>
     </objects>
     <resources>

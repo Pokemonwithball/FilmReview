@@ -99,7 +99,7 @@
                 <outlet property="movieButton" destination="VGt-Aa-zY8" id="SKk-gW-2y1"/>
                 <outlet property="titleLabel" destination="7x4-YL-VYw" id="2JG-U8-Xjj"/>
             </connections>
-            <point key="canvasLocation" x="546" y="161.5"/>
+            <point key="canvasLocation" x="80" y="335.5"/>
         </collectionViewCell>
     </objects>
     <resources>

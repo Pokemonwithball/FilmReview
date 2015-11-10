@@ -72,6 +72,9 @@
         
         rele.view.frame = CGRectMake(0, 64, self.mainView.frame.size.width,self.mainView.frame.size.height - 100);
         [self.mainView addSubview:rele.view];
+        //设置视图在最底层
+        [self.mainView sendSubviewToBack:rele.view];
+        
         _releaseMovie = rele;
     }
     return _releaseMovie;
@@ -106,7 +109,8 @@
     //设置导航栏上面的城市选择
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"城市" style:UIBarButtonItemStyleDone target:self action:@selector(changCiry:)];
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(serachWithName:) image:@"icon_search" highImage:@"icon_search_highlighted"];
-    
+    //设置视图是最底层
+    [self.view sendSubviewToBack:self.mainView];
     
     //设置一些视图的hidden
     [self viewIsHiddemn];
@@ -121,6 +125,7 @@
 -(void)viewIsHiddemn{
     //遮盖一开始隐藏
     self.coverView.hidden = YES;
+    
     //遮盖上的点击事件
     UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(coverViewisHidden)];
     [self.coverView addGestureRecognizer:tapGR];

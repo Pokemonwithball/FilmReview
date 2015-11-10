@@ -17,9 +17,9 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="PRb-I6-4pY">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                     <animations/>
-                    <color key="backgroundColor" red="0.63131298558286664" green="0.95686274510000002" blue="0.33841073438792019" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.47383996212121215" green="0.47383996212121215" blue="0.47383996212121215" alpha="0.091110641891891886" colorSpace="calibratedRGB"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="bGH-uc-bDQ"/>
                         <outlet property="delegate" destination="-1" id="M3v-NI-mnV"/>
@@ -27,12 +27,12 @@
                 </tableView>
             </subviews>
             <animations/>
-            <color key="backgroundColor" red="1" green="0.28634491362477876" blue="0.10868835244624842" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="PRb-I6-4pY" secondAttribute="bottom" id="4Q1-nc-2ky"/>
                 <constraint firstItem="PRb-I6-4pY" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="k9g-9U-FoZ"/>
                 <constraint firstAttribute="trailing" secondItem="PRb-I6-4pY" secondAttribute="trailing" id="qsJ-yh-xH7"/>
-                <constraint firstItem="PRb-I6-4pY" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="uyb-Vd-sOB"/>
+                <constraint firstItem="PRb-I6-4pY" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="uyb-Vd-sOB"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
             <point key="canvasLocation" x="255.5" y="270.5"/>

@@ -32,6 +32,11 @@
 
 #import "AppDelegate+Category.h"
 
+#import "PKQSqlit.h"  //保存所有的数据库
+
+#import "UIImageView+WebCache.h"
+
+
 #endif 
 
 

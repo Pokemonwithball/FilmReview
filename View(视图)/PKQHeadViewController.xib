@@ -114,19 +114,6 @@
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" tag="700" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N05-qA-A1h">
-                    <rect key="frame" x="10" y="195" width="300" height="335"/>
-                    <animations/>
-                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.096521326013513514" colorSpace="calibratedRGB"/>
-                    <string key="text">1979年，昆仑山发生神秘生物骸，-公开（对应Required Scope URI ：movie_basic_r, movie_basic_w）- 所有开发者均可申请，审核通过。限定40次请求/分钟。开放基本数据接口，一般的个人爱好者自建网站或应用都会满足。
-
--高级（对应Required Scope URI ：movie_advance_r, movie_advance_w） - 在运行过一段时间之后，如果这个非商业网站（例如非盈利性质的图书馆，学校，公益组织等）的确出众，且价值观符合Douban，无版权问题，又不和豆瓣电影有正面的商业竞争，可以申请高级权限。开放基本上所有的接口。
-
--商务（对应Required Scope URI ：movie_premium_r, movie_premium_w）- 应用于商务合作，不限制次数，开放有限接口。已经商业化网站请使用此接口。 移植到V2之后，只要满足我们的API规定要求（见后</string>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="暂无评分" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kZS-pn-n9I">
                     <rect key="frame" x="105" y="10" width="52" height="16"/>
                     <animations/>
@@ -134,17 +121,43 @@
                     <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <view tag="600" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qgl-ad-J9K">
+                    <rect key="frame" x="10" y="195" width="300" height="97"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" tag="700" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N05-qA-A1h">
+                            <rect key="frame" x="10" y="5" width="280" height="335"/>
+                            <animations/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <string key="text">1979年，昆仑山发生神秘生物骸，-公开（对应Required Scope URI ：movie_basic_r, movie_basic_w）- 所有开发者均可申请，审核通过。限定40次请求/分钟。开放基本数据接口，一般的个人爱好者自建网站或应用都会满足。
+
+-高级（对应Required Scope URI ：movie_advance_r, movie_advance_w） - 在运行过一段时间之后，如果这个非商业网站（例如非盈利性质的图书馆，学校，公益组织等）的确出众，且价值观符合Douban，无版权问题，又不和豆瓣电影有正面的商业竞争，可以申请高级权限。开放基本上所有的接口。
+
+-商务（对应Required Scope URI ：movie_premium_r, movie_premium_w）- 应用于商务合作，不限制次数，开放有限接口。已经商业化网站请使用此接口。 移植到V2之后，只要满足我们的API规定要求（见后</string>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="highlightedColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </label>
+                    </subviews>
+                    <animations/>
+                    <color key="backgroundColor" red="0.043137254901960784" green="0.043137254901960784" blue="0.043137254901960784" alpha="0.070000000000000007" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="N05-qA-A1h" secondAttribute="trailing" constant="10" id="Ntd-wo-Q5P"/>
+                        <constraint firstItem="N05-qA-A1h" firstAttribute="top" secondItem="Qgl-ad-J9K" secondAttribute="top" constant="5" id="X9A-tJ-Vza"/>
+                        <constraint firstItem="N05-qA-A1h" firstAttribute="leading" secondItem="Qgl-ad-J9K" secondAttribute="leading" constant="10" id="aC6-AZ-HRO"/>
+                    </constraints>
+                </view>
             </subviews>
             <animations/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="X22-pN-8sg" firstAttribute="leading" secondItem="ZD4-IK-r0o" secondAttribute="trailing" constant="5" id="1mm-R4-ctW"/>
                 <constraint firstItem="HfC-eV-ApX" firstAttribute="leading" secondItem="t8n-Dg-upx" secondAttribute="trailing" constant="10" id="3CA-B8-Suu"/>
+                <constraint firstItem="Qgl-ad-J9K" firstAttribute="top" secondItem="zFO-TT-oa4" secondAttribute="bottom" constant="10" id="3n1-mB-MyQ"/>
                 <constraint firstItem="sd3-Fi-Cdc" firstAttribute="top" secondItem="X22-pN-8sg" secondAttribute="bottom" constant="5" id="5IY-j1-JBW"/>
                 <constraint firstAttribute="trailing" secondItem="zFO-TT-oa4" secondAttribute="trailing" constant="10" id="5Kk-0Y-HFB"/>
                 <constraint firstItem="t8n-Dg-upx" firstAttribute="leading" secondItem="DNE-9I-q63" secondAttribute="trailing" constant="5" id="85M-gU-NWs"/>
-                <constraint firstItem="N05-qA-A1h" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="Fb4-GX-cxE"/>
                 <constraint firstItem="DNE-9I-q63" firstAttribute="leading" secondItem="ZD4-IK-r0o" secondAttribute="trailing" constant="5" id="Ff8-ge-eTx"/>
+                <constraint firstItem="Qgl-ad-J9K" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="H0D-Pf-bUS"/>
                 <constraint firstItem="kZS-pn-n9I" firstAttribute="leading" secondItem="ZD4-IK-r0o" secondAttribute="trailing" constant="5" id="HoH-gf-n0l"/>
                 <constraint firstItem="oCy-5b-CHz" firstAttribute="leading" secondItem="ZD4-IK-r0o" secondAttribute="trailing" constant="10" id="Iwq-QU-8ka"/>
                 <constraint firstItem="zFO-TT-oa4" firstAttribute="leading" secondItem="luQ-lO-sB1" secondAttribute="trailing" constant="20" id="JIJ-bu-D54"/>
@@ -153,21 +166,21 @@
                 <constraint firstItem="HfC-eV-ApX" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="14" id="TlK-KK-DPe"/>
                 <constraint firstItem="DNE-9I-q63" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="10" id="Tyz-Og-cGp"/>
                 <constraint firstItem="zFO-TT-oa4" firstAttribute="top" secondItem="luQ-lO-sB1" secondAttribute="top" id="Ufc-dM-gdh"/>
-                <constraint firstAttribute="trailing" secondItem="N05-qA-A1h" secondAttribute="trailing" constant="10" id="Wlr-AS-dst"/>
                 <constraint firstItem="X22-pN-8sg" firstAttribute="top" secondItem="DNE-9I-q63" secondAttribute="bottom" constant="5" id="Y0J-zl-qPV"/>
                 <constraint firstItem="ZD4-IK-r0o" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="b8q-xP-0SI"/>
                 <constraint firstItem="2iy-cT-04h" firstAttribute="leading" secondItem="ZD4-IK-r0o" secondAttribute="trailing" constant="5" id="c6H-WK-VqG"/>
                 <constraint firstItem="zFO-TT-oa4" firstAttribute="width" secondItem="luQ-lO-sB1" secondAttribute="width" id="cG0-c4-R8o"/>
                 <constraint firstItem="oCy-5b-CHz" firstAttribute="top" secondItem="2iy-cT-04h" secondAttribute="bottom" constant="10" id="cgl-Ta-56F"/>
                 <constraint firstItem="ZD4-IK-r0o" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="5" id="dR8-9V-0w8"/>
+                <constraint firstAttribute="trailing" secondItem="Qgl-ad-J9K" secondAttribute="trailing" constant="10" id="dWx-eS-aoR"/>
                 <constraint firstItem="luQ-lO-sB1" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="dZ4-TV-nhq"/>
                 <constraint firstItem="zFO-TT-oa4" firstAttribute="leading" secondItem="luQ-lO-sB1" secondAttribute="trailing" constant="20" id="dxC-56-wEl"/>
                 <constraint firstItem="luQ-lO-sB1" firstAttribute="top" secondItem="oCy-5b-CHz" secondAttribute="bottom" constant="10" id="jQK-9y-o6v"/>
                 <constraint firstItem="2iy-cT-04h" firstAttribute="top" secondItem="sd3-Fi-Cdc" secondAttribute="bottom" constant="5" id="lNr-iH-yX5"/>
-                <constraint firstItem="N05-qA-A1h" firstAttribute="top" secondItem="zFO-TT-oa4" secondAttribute="bottom" constant="10" id="p0z-rc-bdI"/>
                 <constraint firstItem="sd3-Fi-Cdc" firstAttribute="leading" secondItem="ZD4-IK-r0o" secondAttribute="trailing" constant="5" id="qDx-0d-lDl"/>
                 <constraint firstItem="t8n-Dg-upx" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="13" id="ru6-ix-dud"/>
                 <constraint firstAttribute="trailing" secondItem="oCy-5b-CHz" secondAttribute="trailing" constant="30" id="wPY-T9-eev"/>
+                <constraint firstAttribute="bottom" secondItem="Qgl-ad-J9K" secondAttribute="bottom" constant="8" id="y53-2F-YX3"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

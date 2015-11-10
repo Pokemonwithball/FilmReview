@@ -68,13 +68,13 @@
     dict[@"start"] = @(self.start);
     dict[@"count"] = @(self.count);
     
-//    UIActivityIndicatorView *activity = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-//    activity.color = PKQLoveColor;
-//    [activity startAnimating];
-//    [self.view addSubview:activity];
-//    [activity mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.center.mas_equalTo(self.view);
-//    }];
+    UIActivityIndicatorView *activity = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    activity.color = PKQLoveColor;
+    [activity startAnimating];
+    [self.view addSubview:activity];
+    [activity mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.mas_equalTo(self.view);
+    }];
     [[AFHTTPRequestOperationManager manager] GET:path parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         PKQMoviesCommentsModel *comments = [PKQMoviesCommentsModel objectWithKeyValues:responseObject];
@@ -84,7 +84,7 @@
         [self.commentArray addObjectsFromArray:comments.comments];
         [self.tableView reloadData];
         [self.tableView.header endRefreshing];
-//        [activity stopAnimating];
+        [activity stopAnimating];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [MBProgressHUD showError:@"网络有问题，请稍后再试" toView:self.view];
     }];

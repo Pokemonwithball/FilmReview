@@ -68,13 +68,13 @@
     dict[@"start"] = @(self.start);
     dict[@"count"] = @(self.count);
     
-//    UIActivityIndicatorView *activity = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-//    activity.color = PKQLoveColor;
-//    [activity startAnimating];
-//    [self.view addSubview:activity];
-//    [activity mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.center.mas_equalTo(self.view);
-//    }];
+    UIActivityIndicatorView *activity = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    activity.color = PKQLoveColor;
+    [activity startAnimating];
+    [self.view addSubview:activity];
+    [activity mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.mas_equalTo(self.view);
+    }];
     
     [[AFHTTPRequestOperationManager manager] GET:path parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
@@ -82,7 +82,7 @@
         if (self.start == 0) {
             [self.reviewArray removeAllObjects];
         }
-//        [activity stopAnimating];
+        [activity stopAnimating];
         [self.reviewArray addObjectsFromArray:reviews.reviews];
         [self.tableView reloadData];
         [self.tableView.header endRefreshing];

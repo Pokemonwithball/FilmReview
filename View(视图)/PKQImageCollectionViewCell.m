@@ -14,6 +14,11 @@
 
 @implementation PKQImageCollectionViewCell
 
+-(void)setIconView:(UIImageView *)iconView{
+    _iconView = iconView;
+    iconView.contentMode = UIViewContentModeScaleAspectFill;
+}
+
 - (void)awakeFromNib {
     // Initialization code
 }

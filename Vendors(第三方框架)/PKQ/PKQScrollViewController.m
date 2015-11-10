@@ -133,7 +133,15 @@
         }];
         self.backButton = button;
     }
-    
+    //判断有没有下面的bar
+    if (self.tabBarController == nil) {
+        UIImageView *imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"blue"]];
+        [self.view addSubview:imageView];
+        [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.right.left.mas_equalTo(0);
+            make.height.mas_equalTo(44);
+        }];
+    }
     
 }
 //搜索推出返回
@@ -142,7 +150,7 @@
 }
 //其他地方推出返回
 -(void)back{
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (nullable UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController{

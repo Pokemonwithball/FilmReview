@@ -25,7 +25,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="刚从西藏回来带着感情来观影，只是也许想表达的太多也可能是执行力不够又或者是碍于拍摄条件，总体来说故事十分松散不够抓人。这么美的地方最后成片如此，还是怪可惜的。★★" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YPM-x9-jaG">
-                                <rect key="frame" x="5" y="35" width="277" height="124"/>
+                                <rect key="frame" x="10" y="35" width="267" height="124"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -43,11 +43,11 @@
                         <animations/>
                         <color key="backgroundColor" red="0.044625946969697017" green="0.044625946969697017" blue="0.044625946969697017" alpha="0.069072001689189186" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="YPM-x9-jaG" secondAttribute="trailing" constant="5" id="DWk-ZY-ODU"/>
+                            <constraint firstAttribute="trailing" secondItem="YPM-x9-jaG" secondAttribute="trailing" constant="10" id="DWk-ZY-ODU"/>
                             <constraint firstItem="YPM-x9-jaG" firstAttribute="top" secondItem="uAd-Rj-4t4" secondAttribute="bottom" constant="5" id="DlY-2Z-LLH"/>
                             <constraint firstItem="XUj-mc-CCQ" firstAttribute="top" secondItem="CkX-br-EsS" secondAttribute="top" constant="5" id="KdK-ay-rcC"/>
                             <constraint firstAttribute="bottom" secondItem="YPM-x9-jaG" secondAttribute="bottom" constant="5" id="b1b-vI-I7V"/>
-                            <constraint firstItem="YPM-x9-jaG" firstAttribute="leading" secondItem="CkX-br-EsS" secondAttribute="leading" constant="5" id="dSa-Bq-wym"/>
+                            <constraint firstItem="YPM-x9-jaG" firstAttribute="leading" secondItem="CkX-br-EsS" secondAttribute="leading" constant="10" id="dSa-Bq-wym"/>
                             <constraint firstItem="uAd-Rj-4t4" firstAttribute="leading" secondItem="XUj-mc-CCQ" secondAttribute="trailing" constant="5" id="e30-LI-UiP"/>
                             <constraint firstItem="uAd-Rj-4t4" firstAttribute="top" secondItem="XUj-mc-CCQ" secondAttribute="top" id="ijh-0j-S9k"/>
                             <constraint firstItem="XUj-mc-CCQ" firstAttribute="leading" secondItem="CkX-br-EsS" secondAttribute="leading" constant="5" id="lwF-C0-2qE"/>

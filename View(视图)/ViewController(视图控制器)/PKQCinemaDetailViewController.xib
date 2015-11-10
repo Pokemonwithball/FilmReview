@@ -8,7 +8,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PKQCinemaDetailViewController">
             <connections>
                 <outlet property="addressLabel" destination="GNg-n4-aLK" id="UkM-NJ-dUc"/>
-                <outlet property="collectionView" destination="Lld-sG-GQ1" id="TbA-eG-XUx"/>
                 <outlet property="huiBtn" destination="F7c-Gc-RNW" id="ubD-QJ-HFr"/>
                 <outlet property="mapBtn" destination="jN2-fE-dfS" id="9fa-pk-xXh"/>
                 <outlet property="movieIcnView" destination="Z0F-3C-MFs" id="FxN-nv-ITw"/>
@@ -53,10 +52,10 @@
                     </connections>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z0F-3C-MFs">
-                    <rect key="frame" x="0.0" y="142" width="375" height="130"/>
+                    <rect key="frame" x="0.0" y="142" width="375" height="155"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sjx" translatesAutoresizingMaskIntoConstraints="NO" id="PpG-gU-Ddc">
-                            <rect key="frame" x="173" y="110" width="30" height="20"/>
+                            <rect key="frame" x="173" y="135" width="30" height="20"/>
                             <animations/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="30" id="Ev9-QS-AEP"/>
@@ -65,10 +64,10 @@
                         </imageView>
                     </subviews>
                     <animations/>
-                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                     <constraints>
                         <constraint firstItem="PpG-gU-Ddc" firstAttribute="centerX" secondItem="Z0F-3C-MFs" secondAttribute="centerX" id="9R3-id-aR6"/>
-                        <constraint firstAttribute="height" constant="130" id="Mvp-Mh-itI"/>
+                        <constraint firstAttribute="height" constant="155" id="Mvp-Mh-itI"/>
                         <constraint firstAttribute="bottom" secondItem="PpG-gU-Ddc" secondAttribute="bottom" id="qG3-LY-Oov"/>
                     </constraints>
                 </view>
@@ -85,17 +84,6 @@
                         <action selector="goToMap:" destination="-1" eventType="touchUpInside" id="vtW-N0-HNi"/>
                     </connections>
                 </button>
-                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Lld-sG-GQ1">
-                    <rect key="frame" x="0.0" y="272" width="375" height="395"/>
-                    <animations/>
-                    <color key="backgroundColor" red="0.77340673186850661" green="0.84692232711599402" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="FZR-e6-MsQ">
-                        <size key="itemSize" width="50" height="50"/>
-                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                    </collectionViewFlowLayout>
-                </collectionView>
             </subviews>
             <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -105,16 +93,12 @@
                 <constraint firstAttribute="trailing" secondItem="jN2-fE-dfS" secondAttribute="trailing" constant="10" id="7cx-Ub-sZn"/>
                 <constraint firstItem="Z0F-3C-MFs" firstAttribute="top" secondItem="tEo-iW-kFd" secondAttribute="bottom" constant="23" id="A2y-tq-sVl"/>
                 <constraint firstAttribute="trailing" secondItem="Z0F-3C-MFs" secondAttribute="trailing" id="AHe-fJ-aoW"/>
-                <constraint firstItem="Lld-sG-GQ1" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Dvi-w0-BcR"/>
                 <constraint firstItem="F7c-Gc-RNW" firstAttribute="leading" secondItem="GNg-n4-aLK" secondAttribute="trailing" constant="20" id="MdL-br-0ps"/>
                 <constraint firstItem="jN2-fE-dfS" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="84" id="TJj-Ug-RCC"/>
                 <constraint firstItem="GNg-n4-aLK" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="b5Q-XL-2Jt"/>
                 <constraint firstItem="tEo-iW-kFd" firstAttribute="leading" secondItem="F7c-Gc-RNW" secondAttribute="trailing" constant="20" id="ghN-LK-PHO"/>
-                <constraint firstAttribute="bottom" secondItem="Lld-sG-GQ1" secondAttribute="bottom" id="gna-28-gn3"/>
                 <constraint firstItem="GNg-n4-aLK" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="84" id="grA-sC-7XZ"/>
                 <constraint firstItem="jN2-fE-dfS" firstAttribute="leading" secondItem="tEo-iW-kFd" secondAttribute="trailing" constant="20" id="joC-pT-max"/>
-                <constraint firstAttribute="trailing" secondItem="Lld-sG-GQ1" secondAttribute="trailing" id="pgh-NW-Kau"/>
-                <constraint firstItem="Lld-sG-GQ1" firstAttribute="top" secondItem="Z0F-3C-MFs" secondAttribute="bottom" id="qUW-yh-yp7"/>
                 <constraint firstItem="Z0F-3C-MFs" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="u6p-rH-tpN"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>

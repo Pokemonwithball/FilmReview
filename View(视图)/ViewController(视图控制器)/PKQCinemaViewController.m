@@ -73,7 +73,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     //更新位置
     [self.manager startUpdatingLocation];
     //注册
@@ -233,7 +232,10 @@
 }
 //分区头
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-    return section == 0 ? @"常去的影院" :@"附近的影院";
+    NSString *often = @"常去的影院";
+    NSString *navi = @"附近的影院";
+
+    return section == 0 ? often:navi;
 }
 
 

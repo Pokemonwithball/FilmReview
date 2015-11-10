@@ -100,7 +100,7 @@
     CGFloat more = self.headView.titleH -100 ;
     if (btn.selected == NO) {
         if (more>0) {
-            self.headView.view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 300+more+20);
+            self.headView.view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width-40, 300+more+20);
             self.tableView.tableHeaderView = self.headView.view;
             
             [UIView animateWithDuration:1.0 animations:^{
@@ -126,7 +126,7 @@
         }
     }else{
         if (more>0) {
-            self.headView.view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 300);
+            self.headView.view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width-40, 300);
             self.tableView.tableHeaderView = self.headView.view;
             
             [UIView animateWithDuration:1.0 animations:^{
@@ -194,7 +194,7 @@
         //根据 字符串的内容来获取高度
         NSDictionary *strAttrbutes = @{
                                        NSFontAttributeName:[UIFont systemFontOfSize:15]};
-        CGRect newFrame = [str boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width, 999) options:NSStringDrawingUsesLineFragmentOrigin attributes:strAttrbutes context:nil];
+        CGRect newFrame = [str boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width-20, 999) options:NSStringDrawingUsesLineFragmentOrigin attributes:strAttrbutes context:nil];
         return newFrame.size.height+45;
     }
 }
