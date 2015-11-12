@@ -64,7 +64,7 @@
                         </imageView>
                     </subviews>
                     <animations/>
-                    <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="PpG-gU-Ddc" firstAttribute="centerX" secondItem="Z0F-3C-MFs" secondAttribute="centerX" id="9R3-id-aR6"/>
                         <constraint firstAttribute="height" constant="155" id="Mvp-Mh-itI"/>
@@ -102,7 +102,7 @@
                 <constraint firstItem="Z0F-3C-MFs" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="u6p-rH-tpN"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
-            <point key="canvasLocation" x="438.5" y="349.5"/>
+            <point key="canvasLocation" x="174.5" y="176.5"/>
         </view>
     </objects>
     <resources>

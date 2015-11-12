@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "PKQCinemaMovieModel.h"
+#import "PKQCinemaDetailModel.h"
 @interface PKQSqlit : NSObject
 /**
  *获取该电影院的全部电影票信息
@@ -30,6 +31,17 @@
  *增加一个电影票信息
  *
  */
-+(void)addmovieTicketDeals:(PKQCinemaMovieEntriesModel*)ticket;
++(void)addmovieTicketDeals:(PKQCinemaDetailModel*)ticket;
+
+
+//收藏的全部的电影院名字
++(NSArray*)allCinema;
+
+//根据ID移除收藏的电影院
++(void)removeCinemaDealsWithID:(NSString*)ID;
+//增加一个电影院
++(void)addCinemaDealsWith:(PKQCinemaDetailModel*)cinema;
+//根据ID判断有没有这个
++(BOOL)isCinemaDealsWithID:(NSString*)ID;
 
 @end

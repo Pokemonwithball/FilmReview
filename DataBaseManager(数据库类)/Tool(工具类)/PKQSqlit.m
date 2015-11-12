@@ -9,8 +9,9 @@
 #import "PKQSqlit.h"
 #import "FMDB.h"
 @implementation PKQSqlit
-
+//弄个静态变量
 static FMDatabase *_db;
+//一开始就调用一次(测试是这个文件的头文件写到了详情里面，当打开详情的时候这个方法就被调用了)
 +(void)initialize{
      NSString *strpath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).lastObject;
     NSString *file = [strpath stringByAppendingPathComponent:@"pkq.sqlite"];
@@ -23,6 +24,7 @@ static FMDatabase *_db;
     }
     //IF NOT EXISTS  是如果没有就创建等待意思  这个是更新表的意思
     [_db executeUpdate:@"CREATE TABLE IF NOT EXISTS t_ticket_movie(id integer PRIMARY KEY, tMovie blob NOT NULL, movie_image text NOT NULL);"];
+    [_db executeUpdate:@"CREATE TABLE IF NOT EXISTS t_cinema(id integer PRIMARY KEY, tCinemaDeatil blob NOT NULL, cinemaID text NOT NULL);"];
 }
 
 
@@ -49,10 +51,48 @@ static FMDatabase *_db;
 }
 
 
-//删除电影院所有数据
+//删除电影院电影票所有数据
 +(void)removeAllMoviesTicketDeals{
     [_db executeUpdate:@"DELETE FROM t_ticket_movie"];
 }
+
+
+
+
+//收藏的全部的电影院的名字
++(NSArray*)allCinema{
+    NSMutableArray *arr = [NSMutableArray new];
+    //查，返回数控的数据  pos 是从第几个数据开始返回，size是返回多少数据  ORDER BY id DESC 是根据 id 的大小从大到小排列 。默认是从小到大
+    FMResultSet *set = [_db executeQueryWithFormat:@"SELECT * FROM t_cinema ORDER BY id;"];
+    //获取当前的数据库的数据
+    while (set.next) {
+        PKQCinemaDetailModel *model = [NSKeyedUnarchiver unarchiveObjectWithData:[set objectForColumnName:@"tCinemaDeatil"]];
+        [arr addObject:model];
+    }
+    return arr;
+}
+
+//根据ID移除收藏的电影院
++(void)removeCinemaDealsWithID:(NSString*)ID{
+    [_db executeUpdateWithFormat:@"delete from t_cinema where cinemaID = %@",ID];
+}
+//增加一个电影院信息
++(void)addCinemaDealsWith:(PKQCinemaDetailModel*)cinema{
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:cinema];
+    [_db executeUpdateWithFormat:@"INSERT INTO t_cinema(tCinemaDeatil,cinemaID) VALUES(%@,%@);",data,cinema.ID];
+}
+//根据ID判断有没有这个
++(BOOL)isCinemaDealsWithID:(NSString*)ID{
+    //这个返回的一定是有数据的
+    FMResultSet *set = [_db executeQueryWithFormat:@"SELECT count(*) AS cinema FROM t_cinema WHERE cinemaID = %@;",ID];
+    [set next];
+    //按照数据的名字来获取这个数据
+    return [set intForColumn: @"cinema"] == 1;
+}
+
+
+
+
 
 
 @end

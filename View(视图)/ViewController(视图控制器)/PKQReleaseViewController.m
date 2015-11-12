@@ -28,12 +28,28 @@
 //即将上映的按钮
 @property (strong,nonatomic)UIButton* upComeingBtn;
 
+@property (strong,nonatomic)UIWebView* webView;
+
 @end
 
 @implementation PKQReleaseViewController
 
 static NSString * const reuseIdentifier = @"PKQ";
 static NSString * const Identifierhead = @"pkq";
+
+
+-(UIWebView *)webView{
+    if (!_webView) {
+        _webView = [UIWebView new];
+        NSURL *url=[NSURL URLWithString:@"http://www.douban.com/doubanapp/misc/movie_app_index?doubanapp_version="];
+        NSURLRequest *request =[NSURLRequest requestWithURL:url];
+        [_webView loadRequest:request];
+        
+        _webView.scrollView.userInteractionEnabled = NO;
+    }
+    return _webView;
+}
+
 
 -(void)setArray:(NSArray *)array{
     _array = array;
@@ -57,6 +73,8 @@ static NSString * const Identifierhead = @"pkq";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self webView];
     
     self.collectionView.backgroundColor = [UIColor clearColor];
     
@@ -200,14 +218,9 @@ static NSString * const Identifierhead = @"pkq";
              make.edges.mas_equalTo(0);
         }];
         
-        UIWebView *webView = [UIWebView new];
-        NSURL *url=[NSURL URLWithString:@"http://www.douban.com/doubanapp/misc/movie_app_index?doubanapp_version="];
-        NSURLRequest *request =[NSURLRequest requestWithURL:url];
-        [webView loadRequest:request];
-        
-        webView.scrollView.userInteractionEnabled = NO;
-        [view addSubview:webView];
-        [webView mas_makeConstraints:^(MASConstraintMaker *make) {
+        [view addSubview:self.webView];
+        view.clipsToBounds = YES;
+        [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.mas_equalTo(0);
         }];
         return footView;

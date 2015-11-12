@@ -14,6 +14,7 @@
 - (NSDictionary *)objectClassInArray{
     return @{@"subjects" : [PKQSearchMovieSubjectModel class]};
 }
+
 @end
 @implementation PKQSearchMovieSubjectModel
 

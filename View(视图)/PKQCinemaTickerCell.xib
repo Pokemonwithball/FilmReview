@@ -34,6 +34,16 @@
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dlz-O7-HMr">
+                        <rect key="frame" x="0.0" y="0.0" width="100" height="68"/>
+                        <animations/>
+                        <state key="normal">
+                            <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="goToBuyTicket:" destination="gTV-IL-0wX" eventType="touchUpInside" id="Sp2-gg-eY3"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <animations/>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -41,18 +51,23 @@
             <animations/>
             <color key="backgroundColor" red="0.46254118320595727" green="0.73660143308289117" blue="1" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
+                <constraint firstItem="Dlz-O7-HMr" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Hes-bU-GAr"/>
+                <constraint firstAttribute="bottom" secondItem="Dlz-O7-HMr" secondAttribute="bottom" id="Qjo-n0-gdU"/>
                 <constraint firstAttribute="bottom" secondItem="72Z-3q-uk5" secondAttribute="bottom" constant="5" id="Z7c-bQ-xtd"/>
                 <constraint firstItem="Wj2-1f-IOS" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="ahv-r2-UXJ"/>
+                <constraint firstItem="Dlz-O7-HMr" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="cED-bG-hzj"/>
                 <constraint firstItem="72Z-3q-uk5" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="cy1-DU-RIz"/>
                 <constraint firstItem="fuH-sW-87U" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="e3x-fU-Mtk"/>
                 <constraint firstAttribute="trailing" secondItem="72Z-3q-uk5" secondAttribute="trailing" id="gzp-Wf-JXQ"/>
                 <constraint firstAttribute="trailing" secondItem="Wj2-1f-IOS" secondAttribute="trailing" id="oji-8g-2VZ"/>
+                <constraint firstAttribute="trailing" secondItem="Dlz-O7-HMr" secondAttribute="trailing" id="sld-dn-FMN"/>
                 <constraint firstAttribute="trailing" secondItem="fuH-sW-87U" secondAttribute="trailing" id="t2E-BJ-A9w"/>
                 <constraint firstItem="72Z-3q-uk5" firstAttribute="top" secondItem="fuH-sW-87U" secondAttribute="bottom" id="umv-L8-3GV"/>
                 <constraint firstItem="fuH-sW-87U" firstAttribute="top" secondItem="Wj2-1f-IOS" secondAttribute="bottom" id="y3K-Wg-t6K"/>
             </constraints>
             <size key="customSize" width="100" height="77"/>
             <connections>
+                <outlet property="buyTicketBtn" destination="Dlz-O7-HMr" id="a7u-Qz-TKH"/>
                 <outlet property="moneyLabel" destination="72Z-3q-uk5" id="pck-C9-NgJ"/>
                 <outlet property="speakLabel" destination="fuH-sW-87U" id="0BS-XU-xkh"/>
                 <outlet property="timeLabel" destination="Wj2-1f-IOS" id="Za0-gu-A1V"/>

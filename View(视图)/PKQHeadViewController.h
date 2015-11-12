@@ -25,7 +25,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *countryLabel;
 @property (weak, nonatomic) IBOutlet UILabel *typeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dealLabel;
-@property (weak, nonatomic) IBOutlet UIButton *buyMovie;
+//买电影票
+@property (strong, nonatomic)FUIButton *buyMovie;
 @property (weak, nonatomic) IBOutlet UILabel *scoreNOLabel;
 //文本应该的高
 @property (assign,nonatomic) CGFloat titleH;

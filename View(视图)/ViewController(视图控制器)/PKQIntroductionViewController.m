@@ -63,6 +63,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.headView.view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 300);
+    
     UIButton *titleBtn = [[UIButton alloc]init];
     titleBtn.backgroundColor = [UIColor clearColor];
     [self.headView.view addSubview:titleBtn];

@@ -15,7 +15,8 @@
 #import "PKQCinemaReusableView.h"
 #import "PKQScrollViewController.h"
 #import "PKQCinemaViewController.h"
-@interface PKQCinemaDetailViewController ()<iCarouselDelegate,iCarouselDataSource,UICollectionViewDelegate,UICollectionViewDataSource,PKQCinemaReusableViewDelegate,UINavigationControllerDelegate>
+#import "PKQSeatViewController.h"
+@interface PKQCinemaDetailViewController ()<iCarouselDelegate,iCarouselDataSource,UICollectionViewDelegate,UICollectionViewDataSource,PKQCinemaReusableViewDelegate,UINavigationControllerDelegate,PKQCinemaTickerCellDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *mapBtn;
 @property (weak, nonatomic) IBOutlet UIButton *phoneBtn;
 @property (weak, nonatomic) IBOutlet UIButton *huiBtn;
@@ -64,7 +65,7 @@
         CGFloat inset = 10.0;
         layout.itemSize = CGSizeMake((kWindowW-4*inset)/3, 70);
         layout.sectionInset = UIEdgeInsetsMake(inset, inset, inset, inset);
-        layout.headerReferenceSize = CGSizeMake(0, inset*10);
+        layout.headerReferenceSize = CGSizeMake(0, inset*11);
         _collectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:layout];
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
@@ -94,15 +95,6 @@
     return _ic;
 }
 
-//有没有优惠
--(void)setStr:(NSString *)str{
-    _str = str;
-    if (self.str.length <=2) {
-        [self.huiBtn setImage:[UIImage imageNamed:@"tabbar_item_store"] forState:UIControlStateNormal];
-        self.huiBtn.userInteractionEnabled = NO;
-    }
-    
-}
 //获取全部的电影信息 然后取得其中的电影
 -(void)setAllMovies:(NSArray *)allMovies{
     
@@ -112,12 +104,8 @@
     }
     
     self.allMoviesIcon = [NSArray new];
-    for (PKQCinemaMovieEntriesModel* model in allMovies) {
-        //不能写在子线程
-        //        dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        //            [PKQSqlit addmovieTicketDeals:model];
-        //        });
-        [PKQSqlit addmovieTicketDeals:model];
+    for (PKQCinemaMovieEntriesModel* pkq in allMovies) {
+        [PKQSqlit addmovieTicketDeals:pkq];
     }
     
     
@@ -180,12 +168,16 @@
     return categoryArray;
 }
 
-//当退回去的时候清除数据库
-- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated{
-    if ([viewController isKindOfClass:[PKQCinemaViewController class]]) {
-        [PKQSqlit removeAllMoviesTicketDeals];
-    }
-}
+////当退回去的时候清除数据库
+//- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated{
+//    if ([viewController isKindOfClass:[PKQCinemaViewController class]]) {
+//        [PKQSqlit removeAllMoviesTicketDeals];
+////        [self.ic mas_remakeConstraints:^(MASConstraintMaker *make) {
+////            make.edges.mas_equalTo(UIEdgeInsetsMake(5,1000, 5, 0));
+////            
+////        }];
+//    }
+//}
 //当程序这个界面退出的时候释放
 - (void)didEnterBackground:(NSNotification *)notification
 {
@@ -193,16 +185,10 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextFieldTextDidChangeNotification object:nil];
     [self.presentedViewController dismissViewControllerAnimated:NO completion:nil];
 }
-
-
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    //进入这个界面的时候也清空数据库
-    [PKQSqlit removeAllMoviesTicketDeals];
-    self.title = self.model.title;
+//传入电影院信息
+-(void)setModel:(PKQCinemaDetailModel *)model{
+    _model = model;
     self.addressLabel.text = self.model.location.address;
-    
     //判断这几个按钮是否可以按
     if (self.model.location.coordinate.latitude == 0 && self.model.location.coordinate.longitude == 0) {
         [self.mapBtn setImage:[UIImage imageNamed:@"tabbar_item_store"] forState:UIControlStateNormal];
@@ -213,9 +199,15 @@
         self.phoneBtn.userInteractionEnabled = NO;
     }
     
+    if ([PKQSqlit isCinemaDealsWithID:self.model.ID]) {
+        self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(collection:) image:@"smallcollecthi" highImage:@"smallcollecthi"];
+        self.barCollect = YES;
+    }else{
+        self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(collection:) image:@"smallcollect" highImage:@"smallcollect"];
+        self.barCollect = NO;
+    }
     
-    self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(collection:) image:@"smallcollect" highImage:@"smallcollect"];
-    self.barCollect = NO;
+    
     //设置3个按钮的形状
     self.mapBtn.layer.cornerRadius = 17.5;
     self.mapBtn.layer.masksToBounds = YES;
@@ -223,9 +215,38 @@
     self.phoneBtn.layer.masksToBounds = YES;
     self.huiBtn.layer.cornerRadius = 17.5;
     self.huiBtn.layer.masksToBounds = YES;
-    
+    //有没有优惠
+    if (self.model.discount_policy.length <=2) {
+                [self.huiBtn setImage:[UIImage imageNamed:@"tabbar_item_store"] forState:UIControlStateNormal];
+                self.huiBtn.userInteractionEnabled = NO;
+            }
+    self.mapBtn.hidden = NO;
+     self.phoneBtn.hidden = NO;
+     self.huiBtn.hidden = NO;
+    self.addressLabel.hidden = NO;
     //发送网络请求 获取该电影院正在上映的电影
     [self getCinemaAllMovies];
+}
+
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    //进入这个界面的时候也清空数据库
+    [PKQSqlit removeAllMoviesTicketDeals];
+    self.title = self.str;
+    //一开始全部隐藏然后数据获取到的时候展示
+    self.mapBtn.hidden = YES;
+    self.phoneBtn.hidden = YES;
+    self.huiBtn.hidden = YES;
+    self.addressLabel.hidden = YES;
+    //一开始collview不能动
+    self.collectionView.userInteractionEnabled = NO;
+    
+    //设置返回按钮
+    UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithTitle:@"影院" style:UIBarButtonItemStyleDone target:self action:@selector(back)];
+    self.navigationItem.leftBarButtonItem = item;
+   
+    
     
     //滚动视图的添加
     [self.movieIcnView addSubview:self.ic];
@@ -247,6 +268,14 @@
     
     
 }
+//导航栏上的返回按钮
+-(void)back{
+    [self.navigationController popViewControllerAnimated:YES];
+    
+    [PKQSqlit removeAllMoviesTicketDeals];
+}
+
+
 
 -(void)getCinemaAllMovies{
     //    http://api.douban.com/v2/movie/cinema/143039/schedule?
@@ -277,12 +306,19 @@
         make.center.mas_equalTo(self.view);
     }];
     
+    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:path parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         PKQCinemaMovieModel *model = [PKQCinemaMovieModel objectWithKeyValues:responseObject];
+        //让collView可以动
+        self.collectionView.userInteractionEnabled = YES;
+        
         //创建一个数组 然后把全部的电影信息放进去
         self.allMovies = [NSArray new];
         self.allMovies = model.entries;
+        if (self.allMoviesIcon == nil) {
+        [activity stopAnimating];
+        }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"-------%@",error);
         [MBProgressHUD showError:@"网络有问题，请稍后再试" toView:self.view];
@@ -300,6 +336,8 @@
         [self presentViewController:alertC animated:YES completion:nil];
         UIAlertAction *sureAction=[UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
             [MBProgressHUD showSuccess:@"取消收藏成功" toView:self.view];
+            //从数据库中删除这条数据
+            [PKQSqlit removeCinemaDealsWithID:self.model.ID];
             self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(collection:) image:@"smallcollect" highImage:@"smallcollect"];
             self.barCollect = NO;
         }];
@@ -310,10 +348,13 @@
         [alertC addAction:sureAction];
         [alertC addAction:falseAction];
         
+        
     }else{
         [MBProgressHUD showSuccess:@"收藏成功" toView:self.view];
         self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(collection:) image:@"smallcollecthi" highImage:@"smallcollecthi"];
         self.barCollect = YES;
+        //数据库增加一条数据
+        [PKQSqlit addCinemaDealsWith:self.model];
     }
 }
 
@@ -358,7 +399,7 @@
     //    view.userInteractionEnabled = NO;
     view.selectable = NO;
     view.font = [UIFont systemFontOfSize:18];
-    view.text = self.str;
+    view.text = self.model.discount_policy;
     view.frame = CGRectMake(0, 0, kWindowH*0.4, kWindowH*0.4);
     
     [[KGModal sharedInstance] showWithContentView:view andAnimated:YES];
@@ -419,31 +460,8 @@
 -(void)getMovieTicketWithIndex:(NSInteger)index{
     NSArray* movieTicket = [[PKQSqlit movieTicketDealsWith:self.allMoviesIcon[index]] copy];
     
-    //        NSPredicate *predicate = [NSPredicate predicateWithFormat:@""]
-    //        self.movieTicket =
-    
-    //    把今天的日期改成 2004-01-01 格式
-    //    NSDateFormatter *fmt = [[NSDateFormatter alloc]init];
-    //    fmt.dateFormat = @"yyyy-MM-dd";
-    //    NSString *newDate = [fmt stringFromDate:[NSDate date]];
-    //    NSString *mDate = [fmt stringFromDate:[[NSDate date]dateByAddingTimeInterval:24 * 60 * 60]];
-    //    NSMutableArray *tarr = [NSMutableArray new];
-    //    NSMutableArray *marr = [NSMutableArray new];
-    //    NSMutableArray *earr = [NSMutableArray new];
-    //    //分辨是今天还是明天或者其他日子
-    //    for (PKQCinemaMovieEntriesModel *model in movieTicket) {
-    //        if ([model.subject.images.medium isEqualToString:newDate]) {
-    //            [tarr addObject:model];
-    //        }else if ([model.subject.images.medium isEqualToString:mDate]){
-    //            [marr addObject:model];
-    //        }else{
-    //            [earr addObject:model];
-    //        }
-    //    }
-    
-    
     NSMutableArray *nameArray = [NSMutableArray new];
-    if (movieTicket == nil) {
+    if (movieTicket.count <1) {
         return;
     }
     PKQCinemaMovieEntriesModel *firstmovie = movieTicket[0];
@@ -512,6 +530,7 @@
 -(UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     PKQCinemaTickerCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"pkq" forIndexPath:indexPath];
     cell.model = self.selectMovieTicket[indexPath.item];
+    cell.delegate = self;
     return cell;
 }
 
@@ -525,6 +544,9 @@
     self.reusableView = headView;
     headView.backgroundColor = [UIColor whiteColor];
     return headView;
+}
+-(void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
 }
 
 #pragma mark --PKQCinemaReusableViewDelegate
@@ -570,6 +592,14 @@
     [self.collectionView reloadData];
 
 }
+
+#pragma mark -----PKQCinemaTickerCellDelegate
+-(void)cell:(PKQCinemaTickerCell *)cell buyTicketWithModel:(PKQCinemaMovieEntriesModel *)model{
+    PKQSeatViewController *vc = [[PKQSeatViewController alloc]init];
+    vc.model = model;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 
 
 @end

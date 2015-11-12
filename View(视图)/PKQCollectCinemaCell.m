@@ -16,12 +16,15 @@
 
 @implementation PKQCollectCinemaCell
 
--(void)setModel:(PKQNaviCinemaEntriesModel *)model{
+-(void)setModel:(PKQNaviCinemaModel *)model{
     _model = model;
     if (model == nil) {
-        
+        self.collectImage.image = [UIImage imageNamed:@"icon_collect"];
+        self.titleLabel.textColor = [UIColor lightGrayColor];
+        self.titleLabel.text = @"点击添加我常去的影院";
     }else{
         self.collectImage.image = [UIImage imageNamed:@"icon_collect_highlighted@2x"];
+        self.titleLabel.textColor = [UIColor blackColor];
         self.titleLabel.text = model.title;
     }
 }

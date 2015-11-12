@@ -9,6 +9,22 @@
 #import <Foundation/Foundation.h>
 
 @class PKQNaviCinemaEntriesModel,PKQNaviCinemaEntriesImagesModel,PKQNaviCinemaEntriesLocationModel,PKQNaviCinemaEntriesLocationCoordinateModel;
+
+
+
+@interface PKQSimpleCinemaModel : NSObject
+//电影院的名字
+@property (strong,nonatomic) NSString* name;
+//电影院ID
+@property (strong,nonatomic) NSString* ID;
+//地区
+@property (strong,nonatomic) NSString *district;
+
+@end
+
+
+
+
 @interface PKQNaviCinemaModel : NSObject
 
 @property (nonatomic, strong) NSArray<PKQNaviCinemaEntriesModel *> *entries;

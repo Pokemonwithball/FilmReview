@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 #import "PKQNaviCinemaModel.h"
 @interface PKQCollectCinemaCell : UITableViewCell
-@property (strong,nonatomic) PKQNaviCinemaEntriesModel *model;
+@property (strong,nonatomic) PKQNaviCinemaModel *model;
 @end

@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PKQNaviCinemaModel.h"
+#import "PKQCinemaDetailModel.h"
 @interface PKQCinemaDetailViewController : UIViewController
-@property (strong,nonatomic)PKQNaviCinemaEntriesModel *model;
+@property (strong,nonatomic)PKQCinemaDetailModel *model;
 @property (strong,nonatomic)NSString *str;
 @end
