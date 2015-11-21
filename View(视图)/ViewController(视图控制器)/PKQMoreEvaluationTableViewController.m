@@ -29,9 +29,18 @@
 @property (assign,nonatomic) NSInteger count;
 @property (assign,nonatomic) NSInteger start;
 @property (strong,nonatomic) NSMutableArray *reviewArray;
+@property (strong,nonatomic) UIImageView *imageView;
 @end
 
 @implementation PKQMoreEvaluationTableViewController
+
+-(UIImageView *)imageView{
+    if (!_imageView) {
+        _imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"noImage"]];
+    }
+    return _imageView;
+}
+
 
 -(NSMutableArray *)reviewArray{
     if (!_reviewArray) {
@@ -42,6 +51,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+    [self.view addSubview:self.imageView];
+    [self.imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.mas_equalTo(0);
+        make.width.mas_equalTo(kWindowW);
+        make.height.mas_equalTo(kWindowH);
+    }];
+    self.imageView.hidden = YES;
+    
     
     [self.tableView registerNib:[UINib nibWithNibName:@"PKQMoreCell" bundle:nil] forCellReuseIdentifier:@"pkq"];
     self.tableView.tableFooterView = [UIView new];
@@ -84,6 +103,14 @@
         }
         [activity stopAnimating];
         [self.reviewArray addObjectsFromArray:reviews.reviews];
+        
+        if (self.reviewArray.count <1) {
+            self.imageView.hidden = NO;
+        }else{
+            self.imageView.hidden = YES;
+        }
+        
+        
         [self.tableView reloadData];
         [self.tableView.header endRefreshing];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -142,7 +169,12 @@ kRemoveCellSeparator
     PKQMoviesReviewsReviewsModel *review = self.reviewArray[indexPath.row];
     PKQMoreEvalutController *moreVC = [[PKQMoreEvalutController alloc]initWithNibName:@"PKQMoreEvalutController" bundle:nil];
     moreVC.review = review;
-    [self.navigationController pushViewController:moreVC animated:YES];
+    if (self.navigationController == nil) {
+        [self presentViewController:moreVC animated:YES completion:nil];
+    }else{
+        [self.navigationController pushViewController:moreVC animated:YES];
+    }
+    
 }
 
 

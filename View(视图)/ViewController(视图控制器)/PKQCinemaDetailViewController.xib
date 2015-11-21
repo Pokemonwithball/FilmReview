@@ -11,6 +11,8 @@
                 <outlet property="huiBtn" destination="F7c-Gc-RNW" id="ubD-QJ-HFr"/>
                 <outlet property="mapBtn" destination="jN2-fE-dfS" id="9fa-pk-xXh"/>
                 <outlet property="movieIcnView" destination="Z0F-3C-MFs" id="FxN-nv-ITw"/>
+                <outlet property="movieNODeayilLabel" destination="dYr-Ff-Sv6" id="Tbg-oK-6Km"/>
+                <outlet property="movieNoIcnLabel" destination="eY2-sR-izL" id="NYP-QO-c2C"/>
                 <outlet property="phoneBtn" destination="tEo-iW-kFd" id="dwT-MV-ng0"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -58,17 +60,28 @@
                             <rect key="frame" x="173" y="135" width="30" height="20"/>
                             <animations/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="30" id="Ev9-QS-AEP"/>
-                                <constraint firstAttribute="height" constant="20" id="lI2-BK-OQC"/>
+                                <constraint firstAttribute="height" constant="20" id="2QW-eg-a0m"/>
+                                <constraint firstAttribute="width" constant="30" id="isR-hw-eib"/>
                             </constraints>
                         </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="此刻没有上映的信息" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eY2-sR-izL">
+                            <rect key="frame" x="0.0" y="67" width="375" height="21"/>
+                            <animations/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="0.91754056394906391" green="0.92293005336248135" blue="0.92921401515151514" alpha="0.59235114020270274" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <animations/>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstItem="PpG-gU-Ddc" firstAttribute="centerX" secondItem="Z0F-3C-MFs" secondAttribute="centerX" id="9R3-id-aR6"/>
-                        <constraint firstAttribute="height" constant="155" id="Mvp-Mh-itI"/>
-                        <constraint firstAttribute="bottom" secondItem="PpG-gU-Ddc" secondAttribute="bottom" id="qG3-LY-Oov"/>
+                        <constraint firstAttribute="bottom" secondItem="PpG-gU-Ddc" secondAttribute="bottom" id="0LD-Yt-eOQ"/>
+                        <constraint firstItem="eY2-sR-izL" firstAttribute="top" secondItem="Z0F-3C-MFs" secondAttribute="top" constant="67" id="45i-NC-YIx"/>
+                        <constraint firstItem="PpG-gU-Ddc" firstAttribute="centerX" secondItem="Z0F-3C-MFs" secondAttribute="centerX" id="BWj-m8-XsB"/>
+                        <constraint firstItem="eY2-sR-izL" firstAttribute="leading" secondItem="Z0F-3C-MFs" secondAttribute="leading" id="D8n-wy-g6w"/>
+                        <constraint firstAttribute="height" constant="155" id="Tn8-bz-Oyb"/>
+                        <constraint firstAttribute="trailing" secondItem="eY2-sR-izL" secondAttribute="trailing" id="jVt-ix-z8A"/>
+                        <constraint firstAttribute="bottom" secondItem="eY2-sR-izL" secondAttribute="bottom" constant="67" id="kBi-Kj-jl7"/>
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jN2-fE-dfS">
@@ -84,22 +97,32 @@
                         <action selector="goToMap:" destination="-1" eventType="touchUpInside" id="vtW-N0-HNi"/>
                     </connections>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="电影院还没有这部影片的影讯" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dYr-Ff-Sv6">
+                    <rect key="frame" x="0.0" y="476" width="375" height="21"/>
+                    <animations/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.60985008445945943" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="Z0F-3C-MFs" firstAttribute="top" secondItem="GNg-n4-aLK" secondAttribute="bottom" constant="22" id="5lu-1D-Ixp"/>
+                <constraint firstAttribute="bottom" secondItem="dYr-Ff-Sv6" secondAttribute="bottom" constant="170" id="66h-SF-RS4"/>
                 <constraint firstItem="tEo-iW-kFd" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="84" id="7VE-gO-MkH"/>
                 <constraint firstItem="F7c-Gc-RNW" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="84" id="7Vq-v7-b35"/>
                 <constraint firstAttribute="trailing" secondItem="jN2-fE-dfS" secondAttribute="trailing" constant="10" id="7cx-Ub-sZn"/>
-                <constraint firstItem="Z0F-3C-MFs" firstAttribute="top" secondItem="tEo-iW-kFd" secondAttribute="bottom" constant="23" id="A2y-tq-sVl"/>
-                <constraint firstAttribute="trailing" secondItem="Z0F-3C-MFs" secondAttribute="trailing" id="AHe-fJ-aoW"/>
                 <constraint firstItem="F7c-Gc-RNW" firstAttribute="leading" secondItem="GNg-n4-aLK" secondAttribute="trailing" constant="20" id="MdL-br-0ps"/>
                 <constraint firstItem="jN2-fE-dfS" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="84" id="TJj-Ug-RCC"/>
                 <constraint firstItem="GNg-n4-aLK" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="b5Q-XL-2Jt"/>
+                <constraint firstItem="Z0F-3C-MFs" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="d0U-uC-ggZ"/>
+                <constraint firstAttribute="trailing" secondItem="dYr-Ff-Sv6" secondAttribute="trailing" id="d6P-68-jPB"/>
+                <constraint firstItem="dYr-Ff-Sv6" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="gFo-b5-h53"/>
                 <constraint firstItem="tEo-iW-kFd" firstAttribute="leading" secondItem="F7c-Gc-RNW" secondAttribute="trailing" constant="20" id="ghN-LK-PHO"/>
                 <constraint firstItem="GNg-n4-aLK" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="84" id="grA-sC-7XZ"/>
                 <constraint firstItem="jN2-fE-dfS" firstAttribute="leading" secondItem="tEo-iW-kFd" secondAttribute="trailing" constant="20" id="joC-pT-max"/>
-                <constraint firstItem="Z0F-3C-MFs" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="u6p-rH-tpN"/>
+                <constraint firstAttribute="trailing" secondItem="Z0F-3C-MFs" secondAttribute="trailing" id="zok-c9-yuq"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
             <point key="canvasLocation" x="174.5" y="176.5"/>

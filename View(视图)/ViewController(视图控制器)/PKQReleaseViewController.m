@@ -16,6 +16,8 @@
 #import "MJExtension.h"
 #import "PKQUpMovieModel.h"
 #import "MBProgressHUD+MJ.h"
+#import "FBShimmeringView.h"        //漂亮的闪光效果
+#import "FBShimmeringLayer.h"    //漂亮的闪光效果
 
 @interface PKQReleaseViewController ()<UICollectionViewDelegateFlowLayout>
 
@@ -29,6 +31,8 @@
 @property (strong,nonatomic)UIButton* upComeingBtn;
 
 @property (strong,nonatomic)UIWebView* webView;
+
+@property (strong,nonatomic)FBShimmeringView *shiView;
 
 @end
 
@@ -48,6 +52,11 @@ static NSString * const Identifierhead = @"pkq";
         _webView.scrollView.userInteractionEnabled = NO;
     }
     return _webView;
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.shiView.shimmering = YES;
 }
 
 
@@ -101,6 +110,7 @@ static NSString * const Identifierhead = @"pkq";
     [activity mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.mas_equalTo(self.collectionView);
     }];
+    
 }
 //布局
 -(instancetype)init{
@@ -176,8 +186,8 @@ static NSString * const Identifierhead = @"pkq";
 {
     if (indexPath.section == 0 ) {
         UICollectionReusableView *footView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"123" forIndexPath:indexPath];
-        UIView *view = [UIView new];
-//        view.backgroundColor = [UIColor blueColor];
+        FBShimmeringView *view = [FBShimmeringView new];
+        self.shiView = view;
         [footView addSubview:view];
         [view mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(0);
@@ -188,10 +198,10 @@ static NSString * const Identifierhead = @"pkq";
         if (self.upComeingBtn.selected == NO) {
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
             [btn addTarget:self action:@selector(getUpcoming:) forControlEvents:UIControlEventTouchUpInside];
-            btn.backgroundColor = PKQColor(230, 230, 230);
+            btn.backgroundColor = PKQLoveColor;
             [btn setTintColor:PKQColor(183, 190, 199)];
             [btn setTitle:@"即将上映的电影" forState:UIControlStateNormal];
-            [view addSubview:btn];
+            view.contentView = btn;
             [btn mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.centerY.mas_equalTo(footView);
                 make.left.mas_equalTo(10);
@@ -206,8 +216,9 @@ static NSString * const Identifierhead = @"pkq";
             make.centerY.mas_equalTo(footView);
             make.right.mas_equalTo(-18);
         }];
-        activity.color = PKQLoveColor;
+        activity.color = [UIColor whiteColor];
         self.upActivity = activity;
+        view.shimmering = YES;
         return footView;
     }else{
         UICollectionReusableView *footView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"Identifierhead" forIndexPath:indexPath];

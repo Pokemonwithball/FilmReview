@@ -8,41 +8,66 @@
 
 #import "PKQMapViewController.h"
 
-@interface PKQMapViewController ()
-
+@interface PKQMapViewController ()<UIWebViewDelegate>
+@property(nonatomic,strong)UIWebView *webView;
+@property(nonatomic,assign)NSInteger num;
 @end
 
 @implementation PKQMapViewController
 
+- (UIWebView *)webView{
+    if (_webView == nil) {
+        _webView = [[UIWebView alloc]init];
+    }
+    return _webView;
+}
 
-//需要截取html的信息；
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UIWebView *map = [UIWebView new];
-    NSURL *url=[NSURL URLWithString:self.mapStr];
-    NSLog(@"--%@",self.mapStr);
-      NSURLRequest *request =[NSURLRequest requestWithURL:url];
-    [map loadRequest:request];
-    [self.view addSubview:map];
-    [map mas_makeConstraints:^(MASConstraintMaker *make) {
+    self.view.backgroundColor = [UIColor whiteColor];
+    self.webView.delegate = self;
+    [self.view addSubview:self.webView];
+    self.webView.hidden = YES;
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(0);
     }];
     
+    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.mapStr]]];
+    
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+}
+#pragma mark -- UIWebViewDelegate
+- (void)webViewDidFinishLoad:(UIWebView *)webView{
+    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    NSMutableString *js = [NSMutableString string];
+    //删除广告
+    [js appendString:@"var yyBg = document.getElementsByClassName('bg')[0];"];
+    [js appendString:@"yyBg.parentNode.removeChild(yyBg);"];
+    
+    [js appendString:@"var yyTopNav = document.getElementsByClassName('top-nav')[0];"];
+    [js appendString:@"yyTopNav.parentNode.removeChild(yyTopNav);"];
+    
+    [js appendString:@"var yySpNav = document.getElementsByClassName('sp-nav')[0];"];
+    [js appendString:@"yySpNav.parentNode.removeChild(yySpNav);"];
+    
+    [js appendString:@"var yyDbInc = document.getElementsByClassName('db-inc')[0];"];
+    [js appendString:@"yyDbInc.parentNode.removeChild(yyDbInc);"];
+    self.num++;
+    
+    [webView stringByEvaluatingJavaScriptFromString:js];
+    if (self.num == 5) {
+        self.webView.hidden = NO;
+    }
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)webViewDidStartLoad:(UIWebView *)webView{
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 }
-*/
 
 @end

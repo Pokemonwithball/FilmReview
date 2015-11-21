@@ -8,13 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "PKQProvince.h"
-
+#import "PKQMySelfModel.h"
 @interface PKQTool : NSObject
 /*返回省份列表*/
 +(NSArray*)province;
 /*输入省份返回的城市*/
 +(NSArray*)cityWith:(PKQProvince*)province;
 
-
++(PKQMySelfModel*)defaultSelf;
 
 @end

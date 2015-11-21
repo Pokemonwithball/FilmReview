@@ -243,7 +243,7 @@ kRemoveCellSeparator
         [self getSearMovieWithNSString:str];
     }else{
         PKQSearchMovieSubjectModel *subject = self.searchArray[indexPath.row];
-        [self getMovieDetailWithID:subject.ID];
+        [self getMovieDetailWithID:subject.ID withName:(NSString*)subject.title];
     }
 }
 
@@ -304,7 +304,7 @@ kRemoveCellSeparator
 }
 
 
--(void)getMovieDetailWithID:(NSString*)dbID{
+-(void)getMovieDetailWithID:(NSString*)dbID withName:(NSString*)name{
     
     NSString *str = [NSString stringWithFormat:@"http://api.douban.com/v2/movie/subject/%@",dbID];
     
@@ -329,7 +329,7 @@ kRemoveCellSeparator
         NSLog(@"%@",error);
         [MBProgressHUD showError:@"网络有问题，请稍后再试" toView:self.view];
     }];
-    
+    scrollVC.movieName = name;
     [self presentViewController:scrollVC animated:YES completion:nil];
     
 }

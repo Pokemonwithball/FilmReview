@@ -38,6 +38,9 @@
 
 #import "FlatUIKit.h"//扁平化处理按钮
 
+#import "PKQMySelfModel.h"
+
+
 #endif 
 
 

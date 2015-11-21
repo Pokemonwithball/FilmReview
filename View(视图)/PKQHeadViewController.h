@@ -15,8 +15,8 @@
 @interface PKQHeadViewController : UIViewController
 @property (strong,nonatomic)PKQMoviesModel *movie;
 
-@property (weak, nonatomic) IBOutlet UIButton *wantSeeBtn;
-@property (weak, nonatomic) IBOutlet UIButton *didSeeBtn;
+@property (strong, nonatomic) FUIButton *wantSeeBtn;
+@property (strong, nonatomic) FUIButton *didSeeBtn;
 @property (weak, nonatomic) IBOutlet UIButton *ImageBtn;
 @property (weak, nonatomic) IBOutlet UIImageView *scoreImage;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
@@ -27,6 +27,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *dealLabel;
 //买电影票
 @property (strong, nonatomic)FUIButton *buyMovie;
+
 @property (weak, nonatomic) IBOutlet UILabel *scoreNOLabel;
 //文本应该的高
 @property (assign,nonatomic) CGFloat titleH;

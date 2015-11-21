@@ -172,21 +172,7 @@
 }
 //设置导航栏右边的按钮
 -(void)setRightNaviItemsWith:(NSString*)cityName{
-//    UIBarButtonItem *item1 = [[UIBarButtonItem alloc]initWithTitle:cityName style:UIBarButtonItemStylePlain target:self action:@selector(showArea)];
-//    UIBarButtonItem *item1 = [UIBarButtonItem new];
-//    UIImageView *imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"icon_filter_arrow"]];
-//    imageView.frame = CGRectMake(0, 0, 10, 16);
-//    UIBarButtonItem *item2 = [[UIBarButtonItem alloc]initWithCustomView:imageView];
-//    
-//    UIButton *button1 = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [button1 setTitle:@"皮卡丘破" forState:UIControlStateNormal];
-//    button1.frame = CGRectMake(0, 0, 50 , 44);
-//    [button1 setTintColor:PKQLoveColor];
-//    [button1 setFont:[UIFont systemFontOfSize:15]];
-//    button1.backgroundColor = [UIColor redColor];
-//    [button1 addTarget:self action:@selector(showArea) forControlEvents:UIControlEventTouchUpInside];
-//    UIBarButtonItem *item1 = [[UIBarButtonItem alloc]initWithCustomView:button1];
-//    self.navigationItem.rightBarButtonItems = @[item1];
+
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:cityName style:UIBarButtonItemStyleDone target:self action:@selector(showArea)];
 }
 

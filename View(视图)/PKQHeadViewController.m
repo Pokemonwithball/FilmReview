@@ -14,6 +14,83 @@
 @end
 
 @implementation PKQHeadViewController
+-(FUIButton *)buyMovie{
+    if (!_buyMovie) {
+        _buyMovie = [FUIButton buttonWithType:0];
+        [_buyMovie setTintColor:[UIColor whiteColor]];
+        [_buyMovie setTitle:@"购买" forState:UIControlStateNormal];
+        _buyMovie.buttonColor = PKQLoveColor;
+        _buyMovie.shadowColor = PKQColor(16, 128, 199);
+        _buyMovie.shadowHeight = 3.0f;
+        _buyMovie.cornerRadius = 6.0f;
+        _buyMovie.titleLabel.font = [UIFont boldFlatFontOfSize:19];
+        [_buyMovie setTitleColor:[UIColor cloudsColor] forState:UIControlStateNormal];
+        [_buyMovie setTitleColor:[UIColor cloudsColor] forState:UIControlStateHighlighted];
+        
+        
+        [self.view addSubview:_buyMovie];
+        [_buyMovie mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(_typeLabel.mas_bottom).mas_equalTo(10);
+            make.height.mas_equalTo(35);
+            make.right.mas_equalTo(-30);
+            make.left.mas_equalTo(_ImageBtn.mas_right).mas_equalTo(10);
+            
+        }];
+    }
+    return _buyMovie;
+}
+
+-(FUIButton *)wantSeeBtn{
+    if (!_wantSeeBtn) {
+        _wantSeeBtn = [FUIButton buttonWithType:0];
+        [_wantSeeBtn setTintColor:[UIColor whiteColor]];
+        [_wantSeeBtn setTitle:@"我想看" forState:UIControlStateNormal];
+        _wantSeeBtn.buttonColor = PKQLoveColor;
+        _wantSeeBtn.shadowColor = PKQColor(16, 128, 199);
+        _wantSeeBtn.shadowHeight = 3.0f;
+        _wantSeeBtn.cornerRadius = 6.0f;
+        _wantSeeBtn.titleLabel.font = [UIFont boldFlatFontOfSize:17];
+        [_wantSeeBtn setTitleColor:[UIColor cloudsColor] forState:UIControlStateNormal];
+        [_wantSeeBtn setTitleColor:[UIColor cloudsColor] forState:UIControlStateHighlighted];
+        CGFloat btnW = (kWindowW-40)/2;
+        [self.view addSubview:_wantSeeBtn];
+        [_wantSeeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(10);
+            make.height.mas_equalTo(30);
+            make.top.mas_equalTo(_ImageBtn.mas_bottom).mas_equalTo(10);
+            make.width.mas_equalTo(btnW);
+            
+        }];
+    }
+    return _wantSeeBtn;
+}
+
+-(FUIButton *)didSeeBtn{
+    if (!_didSeeBtn) {
+        _didSeeBtn = [FUIButton buttonWithType:0];
+        [_didSeeBtn setTintColor:[UIColor whiteColor]];
+        [_didSeeBtn setTitle:@"看过了" forState:UIControlStateNormal];
+        _didSeeBtn.buttonColor = PKQLoveColor;
+        _didSeeBtn.shadowColor = PKQColor(16, 128, 199);
+        _didSeeBtn.shadowHeight = 3.0f;
+        _didSeeBtn.cornerRadius = 6.0f;
+        _didSeeBtn.titleLabel.font = [UIFont boldFlatFontOfSize:17];
+        [_didSeeBtn setTitleColor:[UIColor cloudsColor] forState:UIControlStateNormal];
+        [_didSeeBtn setTitleColor:[UIColor cloudsColor] forState:UIControlStateHighlighted];
+        CGFloat btnW = (kWindowW-40)/2;
+        [self.view addSubview:_didSeeBtn];
+        [_didSeeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(_wantSeeBtn.mas_right).mas_equalTo(20);
+            make.height.mas_equalTo(30);
+            make.top.mas_equalTo(_ImageBtn.mas_bottom).mas_equalTo(10);
+            make.width.mas_equalTo(btnW);
+            
+        }];
+    }
+    return _wantSeeBtn;
+}
+
+
 -(void)setMovie:(PKQMoviesModel *)movie{
     _movie = movie;
     
@@ -21,8 +98,6 @@
     self.buyMovie.hidden = !movie.has_ticket ;
     
     //设置圆角 以后直接设置圆角的图片
-    self.wantSeeBtn.layer.cornerRadius = 5;
-    self.didSeeBtn.layer.cornerRadius =5;
     self.ImageBtn.layer.cornerRadius = 10;
     
     [self.ImageBtn sd_setBackgroundImageWithURL:[NSURL URLWithString:movie.images[@"large"]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"noImage"]];
@@ -102,7 +177,7 @@
         
         NSDictionary *strAttrbutes = @{
                                        NSFontAttributeName:[UIFont systemFontOfSize:14]};
-        CGRect newFrame = [movie.summary boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width-20, 9999) options:NSStringDrawingUsesLineFragmentOrigin attributes:strAttrbutes context:nil];
+        CGRect newFrame = [movie.summary boundingRectWithSize:CGSizeMake(kWindowW-40, 9999) options:NSStringDrawingUsesLineFragmentOrigin attributes:strAttrbutes context:nil];
         self.titleH = newFrame.size.height;
 //    }
 

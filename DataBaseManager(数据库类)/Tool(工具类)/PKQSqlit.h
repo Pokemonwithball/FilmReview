@@ -44,4 +44,20 @@
 //根据ID判断有没有这个
 +(BOOL)isCinemaDealsWithID:(NSString*)ID;
 
+
+
+//根据账号密码来获取一个用户
++(PKQMySelfModel*)getUserWithAccount:(NSString*)account password:(NSString*)pad;
+
+//增加一个用户
++(void)addUserWithAccount:(PKQMySelfModel*)user;
+//获取当前登录的用户
++(PKQMySelfModel*)getLogIn;
+
+//更新用户信息
++(void)getUser:(PKQMySelfModel*)user;
+
+//删除全部的用户信息
++(void)removeAllUserDeals;
+
 @end

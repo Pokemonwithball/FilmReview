@@ -21,7 +21,14 @@
 @property (weak, nonatomic) IBOutlet UIButton *phoneBtn;
 @property (weak, nonatomic) IBOutlet UIButton *huiBtn;
 @property (weak, nonatomic) IBOutlet UILabel *addressLabel;
+//电影图片的视图
 @property (weak, nonatomic) IBOutlet UIView *movieIcnView;
+//没有上映的电影信息
+@property (weak, nonatomic) IBOutlet UILabel *movieNoIcnLabel;
+//没有这部电影的电影票
+@property (weak, nonatomic) IBOutlet UILabel *movieNODeayilLabel;
+
+
 @property (strong,nonatomic) UICollectionView *collectionView;
 @property (assign,nonatomic) BOOL barCollect;
 @property (strong,nonatomic) NSArray *allMovies;
@@ -39,9 +46,20 @@
 
 @property (strong,nonatomic)PKQCinemaReusableView *reusableView;
 
+@property (assign,nonatomic)NSInteger selectSeveral;
+
 @end
 
 @implementation PKQCinemaDetailViewController
+
+//-(PKQCinemaReusableView *)reusableView{
+//    if (!_reusableView) {
+//        _reusableView = [PKQCinemaReusableView new];
+//    }
+//    return _reusableView;
+//}
+
+
 -(NSArray *)selectMovieTicket{
     if (!_selectMovieTicket) {
         _selectMovieTicket = [NSArray new];
@@ -72,6 +90,7 @@
         _collectionView.backgroundColor = [UIColor whiteColor];
         //表的内边距
         _collectionView.contentInset = UIEdgeInsetsMake(0, 0,54, 0);
+        
         //注册
         [_collectionView registerNib:[UINib nibWithNibName:@"PKQCinemaTickerCell" bundle:nil] forCellWithReuseIdentifier:@"pkq"];
         [_collectionView registerNib:[UINib nibWithNibName:@"PKQCinemaReusableView" bundle:nil]   forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"Identifierhead"];
@@ -131,8 +150,6 @@
                 }else{
                     [nameArray addObject:movieN.subject.images.medium];
                 }
-                
-                
             }else{
                 
                 PKQCinemaMovieEntriesModel *movieB = allMovies[i];
@@ -151,6 +168,9 @@
     }
     
     self.allMoviesIcon = [self arrayWithMemberIsOnly:nameArray];
+    
+    
+    
     //刷新滚动条的数据
     [self.ic reloadData];
     [self.activity stopAnimating];
@@ -168,16 +188,6 @@
     return categoryArray;
 }
 
-////当退回去的时候清除数据库
-//- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated{
-//    if ([viewController isKindOfClass:[PKQCinemaViewController class]]) {
-//        [PKQSqlit removeAllMoviesTicketDeals];
-////        [self.ic mas_remakeConstraints:^(MASConstraintMaker *make) {
-////            make.edges.mas_equalTo(UIEdgeInsetsMake(5,1000, 5, 0));
-////            
-////        }];
-//    }
-//}
 //当程序这个界面退出的时候释放
 - (void)didEnterBackground:(NSNotification *)notification
 {
@@ -217,12 +227,12 @@
     self.huiBtn.layer.masksToBounds = YES;
     //有没有优惠
     if (self.model.discount_policy.length <=2) {
-                [self.huiBtn setImage:[UIImage imageNamed:@"tabbar_item_store"] forState:UIControlStateNormal];
-                self.huiBtn.userInteractionEnabled = NO;
-            }
+        [self.huiBtn setImage:[UIImage imageNamed:@"tabbar_item_store"] forState:UIControlStateNormal];
+        self.huiBtn.userInteractionEnabled = NO;
+    }
     self.mapBtn.hidden = NO;
-     self.phoneBtn.hidden = NO;
-     self.huiBtn.hidden = NO;
+    self.phoneBtn.hidden = NO;
+    self.huiBtn.hidden = NO;
     self.addressLabel.hidden = NO;
     //发送网络请求 获取该电影院正在上映的电影
     [self getCinemaAllMovies];
@@ -233,7 +243,10 @@
     [super viewDidLoad];
     //进入这个界面的时候也清空数据库
     [PKQSqlit removeAllMoviesTicketDeals];
+    //设置一开始的选择第几个
+    self.selectSeveral = 0;
     self.title = self.str;
+    
     //一开始全部隐藏然后数据获取到的时候展示
     self.mapBtn.hidden = YES;
     self.phoneBtn.hidden = YES;
@@ -245,7 +258,10 @@
     //设置返回按钮
     UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithTitle:@"影院" style:UIBarButtonItemStyleDone target:self action:@selector(back)];
     self.navigationItem.leftBarButtonItem = item;
-   
+    
+    //一开始2个显示没有信息的Label都隐藏起来
+    self.movieNoIcnLabel.hidden = YES;
+    self.movieNODeayilLabel.hidden = YES;
     
     
     //滚动视图的添加
@@ -270,6 +286,11 @@
 }
 //导航栏上的返回按钮
 -(void)back{
+    
+    [self.ic mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.edges.mas_equalTo(UIEdgeInsetsMake(5, 1000, 5, 0));
+    }];
+    
     [self.navigationController popViewControllerAnimated:YES];
     
     [PKQSqlit removeAllMoviesTicketDeals];
@@ -317,7 +338,12 @@
         self.allMovies = [NSArray new];
         self.allMovies = model.entries;
         if (self.allMoviesIcon == nil) {
-        [activity stopAnimating];
+            [activity stopAnimating];
+            
+            self.movieNoIcnLabel.hidden = NO;
+            
+        }else{
+            self.movieNoIcnLabel.hidden = YES;
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"-------%@",error);
@@ -455,6 +481,8 @@
     }else{
         [self getMovieTicketWithIndex:carousel.currentItemIndex];
     }
+    //每次滚动都是选择第0个
+    self.selectSeveral = 0;
 }
 /*获取当前选择的电影的电影票信息*/
 -(void)getMovieTicketWithIndex:(NSInteger)index{
@@ -516,7 +544,7 @@
     self.selectMovieTicket = muArray;
     
     [self.collectionView reloadData];
-//    [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
+    //    [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
 }
 
 
@@ -536,12 +564,21 @@
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
+    
     PKQCinemaReusableView *headView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"Identifierhead" forIndexPath:indexPath];
     //传入数据
+    headView.select = self.selectSeveral;
+    
     headView.model = self.movieTicket.firstObject;
     headView.dateArray = self.dateArray;
     headView.delegate = self;
+    //按钮点击了哪一个
+    
+    
     self.reusableView = headView;
+    
+    
+    
     headView.backgroundColor = [UIColor whiteColor];
     return headView;
 }
@@ -551,7 +588,7 @@
 
 #pragma mark --PKQCinemaReusableViewDelegate
 /*发送网络请求和跳转界面*/
--(void)view:(PKQCinemaReusableView *)view goToMovieDetailWithMovieID:(NSString *)dbId{
+-(void)view:(PKQCinemaReusableView *)view goToMovieDetailWithMovieID:(NSString *)dbId withName:(NSString *)name{
     NSString *str = [NSString stringWithFormat:@"http://api.douban.com/v2/movie/subject/%@",dbId];
     
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
@@ -575,12 +612,15 @@
         NSLog(@"%@",error);
         [MBProgressHUD showError:@"网络有问题，请稍后再试" toView:self.view];
     }];
-    
+    scrollVC.movieName = name;
     [self.navigationController pushViewController:scrollVC animated:YES];
     
 }
 //选择了第几天
 -(void)view:(PKQCinemaReusableView *)view selectDate:(NSInteger)indexPath{
+    
+    self.selectSeveral = indexPath;
+    
     NSMutableArray *muArray = [NSMutableArray new];
     for (PKQCinemaMovieEntriesModel* model in self.movieTicket) {
         if ([model.date isEqualToString:self.dateArray[indexPath]]) {
@@ -590,7 +630,7 @@
     
     self.selectMovieTicket = muArray;
     [self.collectionView reloadData];
-
+    
 }
 
 #pragma mark -----PKQCinemaTickerCellDelegate

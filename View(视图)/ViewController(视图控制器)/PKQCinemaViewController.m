@@ -32,9 +32,24 @@
 @property (strong,nonatomic) NSMutableArray *collectArray;
 //有没有获取到位置
 @property (strong,nonatomic)UILabel *whereLabel;
+//旋转按钮
+@property (strong,nonatomic)UIActivityIndicatorView *activity;
 @end
 
 @implementation PKQCinemaViewController
+
+-(UIActivityIndicatorView *)activity{
+    if (!_activity) {
+        _activity = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        _activity.color = PKQLoveColor;
+        [_activity startAnimating];
+        [self.tableView addSubview:_activity];
+        [_activity mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.center.mas_equalTo(self.view);
+        }];
+    }
+    return _activity;
+}
 
 -(NSMutableArray *)collectArray{
     if (!_collectArray) {
@@ -105,11 +120,12 @@
         make.top.mas_equalTo(10);
         make.left.right.mas_equalTo(0);
     }];
-    if (self.cinemaArray.count <2) {
-        label.hidden = NO;
-    }else{
-        label.hidden = YES;
-    }
+    label.hidden = YES;
+//    if (self.cinemaArray.count <2) {
+//        label.hidden = NO;
+//    }else{
+//        label.hidden = YES;
+//    }
     self.whereLabel = label;
     
     
@@ -212,14 +228,16 @@
     dict[@"lng"]=strLng;
     dict[@"lat"]=strLat;
     
+    
    
-    kAddActivity
+    [self.activity startAnimating];
+    
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:path parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         PKQNaviCinemaModel *model = [PKQNaviCinemaModel objectWithKeyValues:responseObject];
         self.cinemaArray = model.entries;
-        [activity stopAnimating];
+        [self.activity stopAnimating];
         
         //判断label是否隐藏
         if (self.cinemaArray.count <2) {
@@ -231,6 +249,11 @@
         [self.tableView reloadData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"-------%@",error);
+        if (self.cinemaArray.count <2) {
+            self.whereLabel.hidden = NO;
+        }else{
+            self.whereLabel.hidden = YES;
+        }
         [MBProgressHUD showError:@"网络有问题，请稍后再试" toView:self.view];
     }];
     

@@ -134,21 +134,19 @@
         button.tag = i*100;
         [button setTintColor:[UIColor whiteColor]];
         [button setTitle:array[i] forState:UIControlStateNormal];
-        if (i == 0) {
+        if (i == self.select) {
             [button setBackgroundImage:[UIImage imageNamed:@"background"] forState:UIControlStateNormal];
         }else{
             [button setBackgroundImage:[UIImage imageNamed:@"backgroundblock"] forState:UIControlStateNormal];
         }
-//        [button setBackgroundImage:[UIImage imageNamed:@"background"] forState:UIControlStateSelected];
         [button addTarget:self action:@selector(selectorDate:) forControlEvents:UIControlEventTouchUpInside];
         self.selectBtn = button;
     }
-    
 }
 //按钮被点击了
 -(void)selectorDate:(UIButton*)btn{
-    [self.selectBtn setBackgroundImage:[UIImage imageNamed:@"backgroundblock"] forState:UIControlStateNormal];
-    [btn setBackgroundImage:[UIImage imageNamed:@"bangcolor"] forState:UIControlStateNormal];
+//    [self.selectBtn setBackgroundImage:[UIImage imageNamed:@"backgroundblock"] forState:UIControlStateNormal];
+//    [btn setBackgroundImage:[UIImage imageNamed:@"bangcolor"] forState:UIControlStateNormal];
     self.selectBtn = btn;
     [self.delegate view:self selectDate:btn.tag/100];
 }
@@ -200,7 +198,7 @@
     // Initialization code
 }
 - (IBAction)goMovieDeatil:(id)sender {
-    [self.delegate view:self goToMovieDetailWithMovieID:self.model.subject.ID];
+    [self.delegate view:self goToMovieDetailWithMovieID:self.model.subject.ID withName:self.model.subject.title];
 }
 
 @end

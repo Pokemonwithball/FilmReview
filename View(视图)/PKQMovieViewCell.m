@@ -19,7 +19,9 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 //电影评分
 @property (weak, nonatomic) IBOutlet UILabel *fractionLabel;
+
 @property (strong,nonatomic) NSString* dbId;
+@property (strong,nonatomic) NSString* name;
 //没有评分
 @property (weak, nonatomic) IBOutlet UILabel *fractionNOLabel;
 /*上映的日期*/
@@ -75,10 +77,11 @@
 
         }
          //[self.movieButton removeTarget:self action:@selector(upMovieGoDetail:) forControlEvents:UIControlEventTouchUpInside];
-        [self.movieButton sd_setBackgroundImageWithURL:[NSURL URLWithString:movie.images[@"large"]] forState:UIControlStateNormal];
+        [self.movieButton sd_setBackgroundImageWithURL:[NSURL URLWithString:movie.images[@"large"]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"noImage"]];
         [self.movieButton addTarget:self action:@selector(goDetail:) forControlEvents:UIControlEventTouchUpInside];
         
         self.dbId = self.movie.dbId;
+        self.name = self.movie.title;
     }
 }
 -(void)setUpMovie:(PKQUpMovieEntriesModel *)upMovie{
@@ -91,14 +94,15 @@
     NSString *week = [self weekDayWithNSArry:array];
     self.dayLabel.text = [NSString stringWithFormat:@"%@ %@",strDay,week];
     
+    [self.movieButton sd_setBackgroundImageWithURL:[NSURL URLWithString:upMovie.images[@"large"]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"noImage"]];
     
-    [self.movieButton sd_setBackgroundImageWithURL:[NSURL URLWithString:upMovie.images[@"large"]] forState:UIControlStateNormal];
     self.imageView.hidden = YES;
     self.fractionLabel.hidden = YES;
     self.fractionNOLabel.hidden = YES;
     //电影的标题
     self.titleLabel.text = upMovie.title;
     self.dbId = self.upMovie.ID;
+    self.name = self.upMovie.title;
     
 }
 
@@ -106,7 +110,7 @@
 
 -(void)goDetail:(UIButton*)item{
     //发送点击了button的通知
-    [PKQNotificationCenter postNotificationName:PKQMovieButtonUpInsideNotification object:nil userInfo:@{PKQSelectMovie : self.dbId}];
+    [PKQNotificationCenter postNotificationName:PKQMovieButtonUpInsideNotification object:nil userInfo:@{PKQSelectMovie : self.dbId,PKQSelectNameMovie : self.name}];
 }
 
 //这样设置就不会自动拉伸

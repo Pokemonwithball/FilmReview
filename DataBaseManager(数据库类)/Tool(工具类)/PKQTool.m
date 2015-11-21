@@ -24,6 +24,16 @@ NSArray *_city;
     return _city;
 }
 
+static  PKQMySelfModel *_myModel;
++(PKQMySelfModel*)defaultSelf{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _myModel = [PKQSqlit getLogIn];
+    });
+    
+    return _myModel;
+}
+
 
 
 @end

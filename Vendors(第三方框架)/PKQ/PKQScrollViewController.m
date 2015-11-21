@@ -9,12 +9,102 @@
 #import "PKQScrollViewController.h"
 #import "Masonry.h"
 #import "PKQConst.h"
+#import "UMSocial.h"
 @interface PKQScrollViewController ()<UIPageViewControllerDataSource,UIPageViewControllerDelegate>
 @property (strong,nonatomic)UIActivityIndicatorView* activity;
 @property (strong,nonatomic)UIButton *backButton;
+@property (strong,nonatomic)UIView *headView;
+@property (strong,nonatomic)UIButton *selectBtn;
+//按钮下面的线
+@property (strong,nonatomic)UIView *lineView;
+//按钮数组
+@property (strong,nonatomic)NSMutableArray* btns;
+
 @end
 
 @implementation PKQScrollViewController
+-(NSArray *)btns{
+    if (!_btns) {
+        _btns = [NSMutableArray new];
+    }
+    return _btns;
+}
+
+-(UIView *)lineView{
+    if (!_lineView) {
+        _lineView = [UIView new];
+        _lineView.backgroundColor = PKQLoveColor;
+    }
+    return _lineView;
+}
+
+-(UIView *)headView{
+    if (!_headView) {
+        _headView = [UIView new];
+        _headView.backgroundColor = [UIColor whiteColor];
+        NSArray *btnNames =@[@"详情",@"剧照",@"短评",@"长评"];
+        for (int i=0; i<btnNames.count; i++) {
+            UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+            [btn setTitle:btnNames[i] forState:UIControlStateNormal];
+            [btn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+            [btn setTitleColor:PKQLoveColor forState:UIControlStateSelected];
+            [_headView addSubview:btn];
+            [btn mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.size.mas_equalTo(CGSizeMake(kBtnW,kBtnH));
+                make.left.mas_equalTo(10+i*kBtnW);
+                make.centerY.mas_equalTo(0);
+            }];
+            [btn addTarget:self action:@selector(headBtnUpInside:) forControlEvents:UIControlEventTouchUpInside];
+            if (i == 0) {
+                btn.selected = YES;
+                self.selectBtn = btn;
+            }
+            [self.btns addObject:btn];
+        }
+        //增加了头部按钮下面的线
+        [_headView addSubview:self.lineView];
+        [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.mas_equalTo(self.selectBtn);
+            make.width.mas_equalTo(kBtnW-30);
+            make.height.mas_equalTo(2);
+            make.top.mas_equalTo(self.selectBtn.mas_bottom).mas_equalTo(0);
+        }];
+        
+        
+    }
+    return _headView;
+}
+//点击了头部视图的按钮
+-(void)headBtnUpInside:(UIButton*)btn{
+    self.selectBtn.selected = NO;
+    btn.selected = YES;
+    self.selectBtn = btn;
+    [self.lineView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.mas_equalTo(self.selectBtn);
+        make.width.mas_equalTo(kBtnW-30);
+        make.height.mas_equalTo(2);
+        make.top.mas_equalTo(self.selectBtn.mas_bottom).mas_equalTo(0);
+    }];
+    //改变下面的滚动视图控制器
+    NSUInteger select = [self.btns indexOfObject:btn];
+    [self changeWithSelectBtn:select];
+}
+//根据按钮点击来改变展示页面
+-(void)changeWithSelectBtn:(NSUInteger)select{
+    //判断页面是在前还是在后
+    NSInteger direction = 0;
+   NSUInteger nowSelect = [self.controllers indexOfObject:self.pageVC.viewControllers.firstObject];
+    direction =  (nowSelect > select ? 1:0);
+    
+    UIViewController *vc = self.controllers[select];
+    
+    //切换当前页面
+    [self.pageVC setViewControllers:@[vc] direction:direction animated:YES completion:nil];
+    
+}
+
+
+
 -(void)setMovie:(PKQMoviesModel *)movie{
     _movie = movie;
     self.pageVC = [[UIPageViewController alloc]initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
@@ -25,20 +115,12 @@
     [self.view addSubview:self.pageVC.view];
     [self.pageVC.view mas_makeConstraints:^(MASConstraintMaker *make) {
         //make.edges.mas_equalTo(self.view);
-        make.top.mas_equalTo(64);
+        make.top.mas_equalTo(64+kBtnH+4);
         make.bottom.mas_equalTo(-44);
         make.left.right.mas_equalTo(0);
     }];
     [self.pageVC setViewControllers:@[self.controllers.firstObject] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
     
-    if (self.navigationController == nil) {
-        [self.backButton setTitle:movie.title forState:UIControlStateNormal];
-        
-    }else{
-        //设置左边返回按钮的文字
-        UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithTitle:movie.title style:UIBarButtonItemStylePlain target:self action:@selector(back)];
-        self.navigationItem.leftBarButtonItem = item;
-    }
     
     
     [self.activity stopAnimating];
@@ -93,8 +175,28 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+    
     self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(back)];
+    //加入头视图
+    [self.view addSubview:self.headView];
+    [self.headView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(64);
+        make.left.right.mas_equalTo(0);
+        make.height.mas_equalTo(kBtnH+4);
+    }];
+    
+    
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:self.movieName style:UIBarButtonItemStylePlain target:self action:@selector(back)];
+    UIButton *fenxBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [fenxBtn setImage:[UIImage imageNamed:@"icon_share"] forState:UIControlStateNormal];
+    [fenxBtn setImage:[UIImage imageNamed:@"icon_share_highlighted"] forState:UIControlStateHighlighted];
+    [fenxBtn addTarget:self action:@selector(fenx) forControlEvents:UIControlEventTouchUpInside];
+    fenxBtn.frame = CGRectMake(0, 0, 60, 60);
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:fenxBtn];
+    
     //旋转提示
     self.activity = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     self.activity.color = PKQLoveColor;
@@ -123,7 +225,7 @@
             make.height.mas_equalTo(1);
         }];
         UIButton *button = [UIButton buttonWithType:1];
-        NSString *str = @"返回";
+        NSString *str = self.movieName;
         [button setTitle:str forState:UIControlStateNormal];
         [button addTarget:self action:@selector(presentBack) forControlEvents:UIControlEventTouchUpInside];
         [view addSubview:button];
@@ -144,6 +246,29 @@
     }
     
 }
+//分享按钮
+-(void)fenx{
+    NSString *str = [NSString stringWithFormat:@"兔子影评的电影详细http://movie.douban.com/subject/%@/?from=showing",self.movie.dbId];
+    [UMSocialSnsService presentSnsIconSheetView:self
+                                         appKey:@"563b586767e58e04fa001fb5"
+                                      shareText:str
+                                     shareImage:[UIImage imageNamed:@"icon.png"]
+                                shareToSnsNames:@[UMShareToWechatSession,UMShareToWechatTimeline,UMShareToWechatFavorite,UMShareToSina]
+                                       delegate:nil];
+}
+//实现回调方法（可选）：
+-(void)didFinishGetUMSocialDataInViewController:(UMSocialResponseEntity *)response
+{
+    //根据`responseCode`得到发送结果,如果分享成功
+    if(response.responseCode == UMSResponseCodeSuccess)
+    {
+        //得到分享到的微博平台名
+        NSLog(@"share to sns name is %@",[[response.data allKeys] objectAtIndex:0]);
+    }
+}
+
+
+
 //搜索推出返回
 -(void)presentBack{
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -168,7 +293,21 @@
     return self.controllers[index+1];
 }
 
-
+- (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray<UIViewController *> *)previousViewControllers transitionCompleted:(BOOL)completed{
+    if (completed) {
+        //获取当前页面的索引值
+        NSInteger select = [self.controllers indexOfObject:pageViewController.viewControllers.firstObject];
+        self.selectBtn.selected = NO;
+        self.selectBtn = self.btns[select];
+        self.selectBtn.selected = YES;
+        [self.lineView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.mas_equalTo(self.selectBtn);
+            make.width.mas_equalTo(kBtnW-30);
+            make.height.mas_equalTo(2);
+            make.top.mas_equalTo(self.selectBtn.mas_bottom).mas_equalTo(0);
+        }];
+    }
+}
 
 
 @end

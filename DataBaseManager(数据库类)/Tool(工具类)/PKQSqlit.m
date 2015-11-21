@@ -15,7 +15,7 @@ static FMDatabase *_db;
 +(void)initialize{
      NSString *strpath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).lastObject;
     NSString *file = [strpath stringByAppendingPathComponent:@"pkq.sqlite"];
-    NSLog(@"电影院数据库的位置%@",file);
+    NSLog(@"电影院数据库的位置  %@",file);
     //创建数据库
     _db = [FMDatabase databaseWithPath:file];
     //打开数据库 如果失败的话就结束。成功就继续
@@ -25,6 +25,7 @@ static FMDatabase *_db;
     //IF NOT EXISTS  是如果没有就创建等待意思  这个是更新表的意思
     [_db executeUpdate:@"CREATE TABLE IF NOT EXISTS t_ticket_movie(id integer PRIMARY KEY, tMovie blob NOT NULL, movie_image text NOT NULL);"];
     [_db executeUpdate:@"CREATE TABLE IF NOT EXISTS t_cinema(id integer PRIMARY KEY, tCinemaDeatil blob NOT NULL, cinemaID text NOT NULL);"];
+    [_db executeUpdate:@"CREATE TABLE IF NOT EXISTS t_user(id integer primary KEY,tUser blob not null,account text not null,password text not null,isLogIn INTEGER not null)"];
 }
 
 
@@ -88,6 +89,68 @@ static FMDatabase *_db;
     [set next];
     //按照数据的名字来获取这个数据
     return [set intForColumn: @"cinema"] == 1;
+}
+
+
+
+
+
+
+
+
+
+
+
+/**
+ *根据密码账号来获取一个对象
+ *
+ */
++(PKQMySelfModel*)getUserWithAccount:(NSString*)account password:(NSString*)pad{
+    FMResultSet *set = [_db executeQueryWithFormat:@"SELECT * FROM t_user where account = %@ and password = %@;",account,pad];
+    [set next];
+    PKQMySelfModel *model = [NSKeyedUnarchiver unarchiveObjectWithData:[set objectForColumnName:@"tUser"]];
+    return model;
+}
+
+/**
+ *添加一个用户对象
+ *
+ */
++(void)addUserWithAccount:(PKQMySelfModel*)user{
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:user];
+    
+    [_db executeUpdateWithFormat:@"INSERT INTO t_user(tUser,account,password,isLogIn) VALUES(%@,%@,%@,%d);",data,user.account,user.password,(user.logeIn? 1:0)];
+}
+/**
+ *根据是否登录了来获取用户信息
+ *
+ */
++(PKQMySelfModel*)getLogIn{
+    FMResultSet *set = [_db executeQueryWithFormat:@"SELECT count(*) AS isLogIn FROM t_user WHERE isLogIn = 1;"];
+    [set next];
+    //按照数据的名字来获取这个数据
+    if ([set intForColumn: @"isLogIn"] == 1) {
+        FMResultSet *set = [_db executeQueryWithFormat:@"select * from t_user where isLogIn = 1"];
+        [set next];
+        PKQMySelfModel *model = [NSKeyedUnarchiver unarchiveObjectWithData:[set objectForColumnName:@"tUser"]];
+        return model;
+    }else{
+        return [PKQMySelfModel new];
+    }
+}
+/**
+ *根据账号表格中登录的信息
+ *
+ */
++(void)getUser:(PKQMySelfModel*)user{
+    
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:user];
+    [_db executeUpdateWithFormat:@"update t_user set isLogIn = %d ,tUser = %@ ,password = %@ where (account = %@);",(user.logeIn?1:0),data,user.password,user.account];
+}
+
+//删除用户所有数据
++(void)removeAllUserDeals{
+    [_db executeUpdate:@"DELETE FROM t_user"];
 }
 
 

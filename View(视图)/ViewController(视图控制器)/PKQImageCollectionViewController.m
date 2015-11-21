@@ -26,15 +26,34 @@
 @property (strong,nonatomic) NSArray *imageArr;
 //当前显示的数量
 @property (assign,nonatomic) NSInteger items;
+@property (strong,nonatomic) UIImageView* imageView;
 @end
 
 @implementation PKQImageCollectionViewController
 
 static NSString * const reuseIdentifier = @"pkq";
 
+-(UIImageView *)imageView{
+    if (!_imageView) {
+        _imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"noImage"]];
+    }
+    return _imageView;
+}
+
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.collectionView.backgroundColor = [UIColor whiteColor];
+    
+    [self.view addSubview:self.imageView];
+    [self.imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(0);
+        make.top.mas_equalTo(0);
+        make.bottom.mas_equalTo(0);
+    }];
+    self.imageView.hidden = YES;
+    
     //发送网络信息
     //    http://api.douban.com/movie/subject/1866473/photos?
     //    alt=json&
@@ -81,6 +100,15 @@ static NSString * const reuseIdentifier = @"pkq";
             [array addObject:link.href];
         }
         self.imageArr =array;
+        
+        if (self.imageArr.count <1) {
+            self.imageView.hidden = NO;
+        }else{
+            self.imageView.hidden = YES;
+        }
+        
+        
+        
         [self.collectionView reloadData];
         //600 345
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

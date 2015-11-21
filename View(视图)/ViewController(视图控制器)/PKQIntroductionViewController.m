@@ -13,6 +13,9 @@
 #import "PKQStartTableViewCell.h"
 #import "PKQPopular_commentsTableViewCell.h"
 #import "PKQDirectorViewController.h"
+#import "PKQCinemaViewController.h"
+#import "PKQBuyMovieViewController.h"
+
 @interface PKQIntroductionViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong,nonatomic)PKQHeadViewController* headView;
@@ -91,8 +94,14 @@
 -(void)didSee:(UIButton*)btn{
     NSLog(@"看过了");
 }
+//买电影票
 -(void)buyMovie:(UIButton*)btn{
-    NSLog(@"买电影票");
+    
+    PKQBuyMovieViewController *vc = [[PKQBuyMovieViewController alloc]init];
+    vc.dbID = self.movie.dbId;
+    vc.movicName = self.movie.title;
+    [self.navigationController pushViewController:vc animated:YES];
+    
 }
 -(void)seeMovie:(UIButton*)btn{
     NSLog(@"播放预告片");
@@ -101,21 +110,21 @@
     CGFloat more = self.headView.titleH -100 ;
     if (btn.selected == NO) {
         if (more>0) {
-            self.headView.view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width-40, 300+more+20);
+            self.headView.view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width-40, 300+more+10);
             self.tableView.tableHeaderView = self.headView.view;
             
             [UIView animateWithDuration:1.0 animations:^{
                 [btn mas_remakeConstraints:^(MASConstraintMaker *make) {
-                    make.left.mas_equalTo(10);
+                    make.left.mas_equalTo(5);
                     make.right.mas_equalTo(-10);
                     make.bottom.mas_equalTo(-10);
                     make.height.mas_equalTo(115+more);
                 }];
                 
                 [self.headView.dealLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.top.mas_equalTo(5);
                     make.left.mas_equalTo(10);
                     make.right.mas_equalTo(-10);
-                    make.bottom.mas_equalTo(-10);
                 }];
                 btn.selected = YES;
                 

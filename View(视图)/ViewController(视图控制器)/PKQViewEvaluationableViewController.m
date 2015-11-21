@@ -29,9 +29,20 @@
 @property (assign,nonatomic) NSInteger count;
 @property (assign,nonatomic) NSInteger start;
 @property (strong,nonatomic) NSMutableArray *commentArray;
+@property (strong,nonatomic) UIImageView *imageView;
+
+
 @end
 
 @implementation PKQViewEvaluationableViewController
+
+-(UIImageView *)imageView{
+    if (!_imageView) {
+        _imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"noImage"]];
+    }
+    return _imageView;
+}
+
 
 -(NSMutableArray *)commentArray{
     if (!_commentArray) {
@@ -42,6 +53,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self.view addSubview:self.imageView];
+    [self.imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.mas_equalTo(0);
+        make.width.mas_equalTo(kWindowW);
+        make.height.mas_equalTo(kWindowH);
+    }];
+    
     
     [self.tableView registerNib:[UINib nibWithNibName:@"PKQCommentCell" bundle:nil] forCellReuseIdentifier:@"pkq"];
     self.tableView.tableFooterView = [UIView new];
@@ -84,6 +103,13 @@
         [self.commentArray addObjectsFromArray:comments.comments];
         [self.tableView reloadData];
         [self.tableView.header endRefreshing];
+        
+        if (self.commentArray.count <1) {
+            self.imageView.hidden = NO;
+        }else{
+            self.imageView.hidden = YES;
+        }
+        
         [activity stopAnimating];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [MBProgressHUD showError:@"网络有问题，请稍后再试" toView:self.view];

@@ -11,7 +11,7 @@
 @class PKQCinemaReusableView;
 @protocol PKQCinemaReusableViewDelegate <NSObject>
 
--(void)view:(PKQCinemaReusableView*)view goToMovieDetailWithMovieID:(NSString*)dbId;
+-(void)view:(PKQCinemaReusableView*)view goToMovieDetailWithMovieID:(NSString*)dbId withName:(NSString*)name;
 
 -(void)view:(PKQCinemaReusableView *)view selectDate:(NSInteger)indexPath;
 
@@ -22,6 +22,8 @@
 @property (strong,nonatomic) PKQCinemaMovieEntriesModel *model;
 /*时间的数组*/
 @property (strong,nonatomic) NSArray* dateArray;
+
+@property (assign,nonatomic)NSInteger select;
 
 @property (strong,nonatomic)id<PKQCinemaReusableViewDelegate> delegate;
 @end

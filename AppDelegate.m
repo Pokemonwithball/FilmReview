@@ -10,14 +10,32 @@
 #import "PKQMoviesViewController.h"
 #import "PKQCinemaViewController.h"
 #import "PKQSelfTableViewController.h"
+#import "UMSocial.h"
+#import "UMSocialWechatHandler.h"
 @interface AppDelegate ()
 
 @end
 
 @implementation AppDelegate
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+    return  [UMSocialSnsService handleOpenURL:url];
+}
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation
+{
+    return  [UMSocialSnsService handleOpenURL:url];
+}
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    [UMSocialData setAppKey:@"563b586767e58e04fa001fb5"];
+    
+    [UMSocialWechatHandler setWXAppId:@"wx6cd7b2d07967885f" appSecret:@"d4624c36b6795d1d99dcf0547af5443d" url:@"http://www.umeng.com/social"];
+    
     self.window = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen]bounds]];
     
     PKQMoviesViewController *movieVC = [[PKQMoviesViewController alloc]initWithNibName:@"PKQMoviesViewController" bundle:nil];

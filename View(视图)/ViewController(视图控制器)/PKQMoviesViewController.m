@@ -172,6 +172,7 @@
 #pragma mark - 电影详情
 -(void)UpInside:(NSNotification*)notification{
     NSString *dbId = notification.userInfo[PKQSelectMovie];
+    NSString *name = notification.userInfo[PKQSelectNameMovie];
     //推出的时候发送网络请求
     //http://api.douban.com/v2/movie/subject/1866473?alt=json&apikey=0df993c66c0c636e29ecbb5344252a4a&app_name=doubanmovie&city=%E5%8C%97%E4%BA%AC&client=e%3AiPhone8%2C2%7Cy%3AiPhone%20OS_9.0.2%7Cs%3Amobile%7Cf%3Adoubanmovie_2%7Cv%3A3.6.7%7Cm%3A%E8%B1%86%E7%93%A3%E7%94%B5%E5%BD%B1%7Cudid%3A2f6386d033b0a1f01f6a32b4db14558ccc4abe57&douban_udid=c3a8887c60f551117c1859548c56ea60f35b6295&udid=2f6386d033b0a1f01f6a32b4db14558ccc4abe57&version=2
 //    NSString *str = @"http://api.douban.com/v2/movie/subject/26094129 ?alt=json&
@@ -185,6 +186,7 @@
     
     
     NSString *str = [NSString stringWithFormat:@"http://api.douban.com/v2/movie/subject/%@",dbId];
+    
 
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     dict[@"alt"] = @"json";
@@ -206,6 +208,7 @@
         NSLog(@"%@",error);
         [MBProgressHUD showError:@"网络有问题，请稍后再试" toView:self.view];
     }];
+    scrollVC.movieName = name;
     [self.navigationController pushViewController:scrollVC animated:YES];
 }
 
@@ -263,7 +266,7 @@
     
     return cell;
 }
-
+kRemoveCellSeparator
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (tableView == self.provinceTableView) {
         self.cityArray = nil;

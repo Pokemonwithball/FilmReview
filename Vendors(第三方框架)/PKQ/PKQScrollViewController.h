@@ -27,6 +27,8 @@
 /*影评控制器*/
 @property (strong,nonatomic) PKQMoreEvaluationTableViewController *moreVC;
 
+@property(strong,nonatomic)NSString *movieName;
+
 //传入视图控制器
 - (instancetype)initWithControllers;
 @end
